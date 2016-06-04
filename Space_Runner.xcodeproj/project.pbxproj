@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E386E4511D0226AE009BB68E /* PlayerLaserShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */; };
+		E386E4531D0276F9009BB68E /* powerUpHealth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */; };
+		E386E4551D02772B009BB68E /* powerUpWeapon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */; };
+		E386E4571D027744009BB68E /* powerUpShield.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4561D027744009BB68E /* powerUpShield.mp3 */; };
 		E39EA6231D013EAA00FA08ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EA6221D013EAA00FA08ED /* AppDelegate.swift */; };
 		E39EA6251D013EAA00FA08ED /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = E39EA6241D013EAA00FA08ED /* GameScene.sks */; };
 		E39EA6271D013EAA00FA08ED /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39EA6261D013EAA00FA08ED /* GameScene.swift */; };
@@ -17,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PlayerLaserShot.mp3; sourceTree = "<group>"; };
+		E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = powerUpHealth.mp3; sourceTree = "<group>"; };
+		E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = powerUpWeapon.mp3; sourceTree = "<group>"; };
+		E386E4561D027744009BB68E /* powerUpShield.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = powerUpShield.mp3; sourceTree = "<group>"; };
 		E39EA61F1D013EAA00FA08ED /* Space_Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Space_Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E39EA6221D013EAA00FA08ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E39EA6241D013EAA00FA08ED /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -39,6 +47,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E386E44E1D0209AF009BB68E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E386E44F1D020A08009BB68E /* SFX */,
+				E39EA62D1D013EAA00FA08ED /* Assets.xcassets */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		E386E44F1D020A08009BB68E /* SFX */ = {
+			isa = PBXGroup;
+			children = (
+				E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */,
+				E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */,
+				E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */,
+				E386E4561D027744009BB68E /* powerUpShield.mp3 */,
+			);
+			name = SFX;
+			sourceTree = "<group>";
+		};
 		E39EA6161D013EAA00FA08ED = {
 			isa = PBXGroup;
 			children = (
@@ -63,7 +91,7 @@
 				E39EA6261D013EAA00FA08ED /* GameScene.swift */,
 				E39EA6281D013EAA00FA08ED /* GameViewController.swift */,
 				E39EA62A1D013EAA00FA08ED /* Main.storyboard */,
-				E39EA62D1D013EAA00FA08ED /* Assets.xcassets */,
+				E386E44E1D0209AF009BB68E /* Assets */,
 				E39EA62F1D013EAA00FA08ED /* LaunchScreen.storyboard */,
 				E39EA6321D013EAA00FA08ED /* Info.plist */,
 			);
@@ -131,8 +159,12 @@
 			files = (
 				E39EA6251D013EAA00FA08ED /* GameScene.sks in Resources */,
 				E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */,
+				E386E4571D027744009BB68E /* powerUpShield.mp3 in Resources */,
+				E386E4551D02772B009BB68E /* powerUpWeapon.mp3 in Resources */,
 				E39EA62E1D013EAA00FA08ED /* Assets.xcassets in Resources */,
 				E39EA62C1D013EAA00FA08ED /* Main.storyboard in Resources */,
+				E386E4511D0226AE009BB68E /* PlayerLaserShot.mp3 in Resources */,
+				E386E4531D0276F9009BB68E /* powerUpHealth.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +329,7 @@
 				E39EA6371D013EAA00FA08ED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

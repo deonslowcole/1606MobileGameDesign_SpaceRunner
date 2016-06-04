@@ -2,7 +2,7 @@
 //  GameViewController.swift
 //  Space_Runner
 //
-//  Created by Deon Cole on 6/3/16.
+//  Created by Deon Cole on 6/2/16.
 //  Copyright (c) 2016 Deon Cole. All rights reserved.
 //
 
