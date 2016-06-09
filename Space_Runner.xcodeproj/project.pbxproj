@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E35528031D05DA90009979E3 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E35528021D05DA90009979E3 /* Fire.sks */; };
 		E35585411D03E9B900E27F86 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = E355853F1D03E9B900E27F86 /* Rain.sks */; };
 		E35585421D03E9B900E27F86 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E35585401D03E9B900E27F86 /* spark.png */; };
 		E386E4511D0226AE009BB68E /* PlayerLaserShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E35528021D05DA90009979E3 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		E355853F1D03E9B900E27F86 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		E35585401D03E9B900E27F86 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PlayerLaserShot.mp3; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				E39EA6321D013EAA00FA08ED /* Info.plist */,
 				E355853F1D03E9B900E27F86 /* Rain.sks */,
 				E35585401D03E9B900E27F86 /* spark.png */,
+				E35528021D05DA90009979E3 /* Fire.sks */,
 			);
 			path = Space_Runner;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E35528031D05DA90009979E3 /* Fire.sks in Resources */,
 				E35585411D03E9B900E27F86 /* Rain.sks in Resources */,
 				E39EA6251D013EAA00FA08ED /* GameScene.sks in Resources */,
 				E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */,
