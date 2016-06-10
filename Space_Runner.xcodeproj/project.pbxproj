@@ -21,6 +21,7 @@
 		E39EA62C1D013EAA00FA08ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62A1D013EAA00FA08ED /* Main.storyboard */; };
 		E39EA62E1D013EAA00FA08ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62D1D013EAA00FA08ED /* Assets.xcassets */; };
 		E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62F1D013EAA00FA08ED /* LaunchScreen.storyboard */; };
+		E39FC8CE1D0A73C100CB83A3 /* EnemyBlowUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		E39EA62D1D013EAA00FA08ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E39EA6301D013EAA00FA08ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E39EA6321D013EAA00FA08ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyBlowUp.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */,
 				E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */,
 				E386E4561D027744009BB68E /* powerUpShield.mp3 */,
+				E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */,
 			);
 			name = SFX;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				E35585411D03E9B900E27F86 /* Rain.sks in Resources */,
 				E39EA6251D013EAA00FA08ED /* GameScene.sks in Resources */,
 				E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */,
+				E39FC8CE1D0A73C100CB83A3 /* EnemyBlowUp.mp3 in Resources */,
 				E386E4571D027744009BB68E /* powerUpShield.mp3 in Resources */,
 				E386E4551D02772B009BB68E /* powerUpWeapon.mp3 in Resources */,
 				E35585421D03E9B900E27F86 /* spark.png in Resources */,

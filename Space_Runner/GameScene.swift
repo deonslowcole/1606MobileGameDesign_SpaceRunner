@@ -17,6 +17,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var playerShip = SKSpriteNode()
     var shield = SKSpriteNode()
+    var playerShipShield = SKSpriteNode()
     
     //Create nodes for enemy ships
     var enemyShip1 = SKSpriteNode()
@@ -47,6 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Declare contants for audio
     let playerLaserAudio = SKAction.playSoundFileNamed("PlayerLaserShot.mp3", waitForCompletion: true)
     let playerShield = SKAction.playSoundFileNamed("powerUpShield.mp3", waitForCompletion: true)
+    let enemyBlownUp = SKAction.playSoundFileNamed("EnemyBlowUp.mp3", waitForCompletion: true)
     
     
     override func didMoveToView(view: SKView) {
@@ -85,14 +87,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(playerShip)
         
         
+        let playerShipShieldTexture = SKTexture(imageNamed: "PlayerShipShield.png")
+        playerShipShield = SKSpriteNode(texture: playerShipShieldTexture)
+    
+        
 //        //Call the method to create the enemy ship nodes
 //        createEnemyNodes()
         
         
         //Declare a constant to hold the timer for displaying the enemy ships
-        _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(GameScene.showEnemyShips), userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.showEnemyShips), userInfo: nil, repeats: true)
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.createShield), userInfo: nil, repeats: true)
+        _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(GameScene.createShield), userInfo: nil, repeats: true)
         
         
         //Create emmiter nodes to add effect/animation to the scene.
@@ -317,6 +323,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             playerLaser.removeFromParent()
             enemyShip1.removeFromParent()
+            runAction(enemyBlownUp)
         }
         
         //Declare variables to hold the contact bodies that will cause a action when there is contact between two different entities
@@ -334,6 +341,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (firstBody.categoryBitMask == CollisionType.PowerUps.rawValue && secondBody.categoryBitMask == CollisionType.PlayerShip.rawValue) || (firstBody.categoryBitMask == CollisionType.PlayerShip.rawValue && secondBody.categoryBitMask == CollisionType.PowerUps.rawValue) {
             
             shield.removeFromParent()
+            playerShip.addChild(playerShipShield)
             runAction(playerShield)
         }
         

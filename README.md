@@ -9,3 +9,8 @@ Game for iPhone Only
 Sprites & Sound Effects can be found the the Assests folder.
 The input control is the fire button at the bottom right of the scene.
 Touching the fire button will sound the laser of the player. Touching the shield on the scene will provide the power up sound to the user.
+
+
+Enemy Ship moves towards the player's ship. 
+Contact with the power up shield will activate the shield over the player's ship.
+Audio notification happens when the player destroyes the enemy ship with the laser and the when the players ship come into contact with the power up shield icon.
