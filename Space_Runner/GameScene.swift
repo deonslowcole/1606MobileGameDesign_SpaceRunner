@@ -19,12 +19,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playerShip = SKSpriteNode()
     var shield = SKSpriteNode()
     var playerShipShield = SKSpriteNode()
-    var playerHealth = SKSpriteNode()
+    var powerUpHealth = SKSpriteNode()
     var playerLaser = SKSpriteNode()
     var shipDamage1 = SKSpriteNode()
     var shipDamage2 = SKSpriteNode()
     var shipDamage3 = SKSpriteNode()
-    var playerHealthTimer = NSTimer()
+    var powerUpHealthTimer = NSTimer()
     
     //Create nodes for enemy ships
     var enemyShip1 = SKSpriteNode()
@@ -91,8 +91,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Declare constants for audio
     let playerLaserAudio = SKAction.playSoundFileNamed("PlayerLaserShot.mp3", waitForCompletion: true)
     let enemyLaserAudio = SKAction.playSoundFileNamed("EnemyLaserShot.mp3", waitForCompletion: true)
-    let playerShield = SKAction.playSoundFileNamed("powerUpShield.mp3", waitForCompletion: true)
-    let playerHeathAudio = SKAction.playSoundFileNamed("powerUpHealth.mp3", waitForCompletion: true)
+    let playerHealthAudio = SKAction.playSoundFileNamed("powerUpHealth.mp3", waitForCompletion: true)
     let enemyBlownUp = SKAction.playSoundFileNamed("EnemyBlowUp.mp3", waitForCompletion: true)
     let playerBlownUp = SKAction.playSoundFileNamed("MissionFailed.mp3", waitForCompletion: true)
     
@@ -133,14 +132,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let playerShipShieldTexture = SKTexture(imageNamed: "PlayerShipShield.png")
         playerShipShield = SKSpriteNode(texture: playerShipShieldTexture)
         
-        let shipDamageTexture1 = SKTexture(imageNamed: "playerShipDamage1.png")
-        shipDamage1 = SKSpriteNode(texture: shipDamageTexture1)
-        
-        let shipDamageTexture2 = SKTexture(imageNamed: "playerShipDamage2.png")
-        shipDamage2 = SKSpriteNode(texture: shipDamageTexture2)
-        
-        let shipDamageTexture3 = SKTexture(imageNamed: "playerShipDamage3.png")
-        shipDamage3 = SKSpriteNode(texture: shipDamageTexture3)
+        //Pull textures from the sprite sheet to diaplay damage to the player's ship
+        shipDamage1 = SKSpriteNode(texture: spriteSheet.playerShipDamage1())
+        shipDamage2 = SKSpriteNode(texture: spriteSheet.playerShipDamage2())
+        shipDamage3 = SKSpriteNode(texture: spriteSheet.playerShipDamage3())
         
     
        //Call the method to add the enemy ships
@@ -148,10 +143,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Call the method to add the enemy ships
         runMeteorTimer()
-        
-
-        //Call the method to create health for the player
-        createPlayerHealth()
         
         
         //Create emmiter nodes to add effect/animation to the scene.
@@ -199,8 +190,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if name == "fireButton" {
                     runAction(playerLaserAudio)
                     shootLaser()
-                } else if name == "powerUpShield" {
-                    runAction(playerShield)
                 } else if name == "moveLeftButton" {
                     playerShip.physicsBody?.velocity = CGVectorMake(-800, 0)
                 } else if name == "moveRightButton" {
@@ -242,6 +231,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Update the score when the player destroys a enemy ship.
         scoreLabel.text = "Score: " + "\(playerScore)"
         
+        
     }
     
     //MARK: Functions
@@ -282,12 +272,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //Method that call the timer for the player health power up
-    func createPlayerHealth() {
+    func createPowerUpHealth() {
         
         if hitCount > 0 {
-            
-        playerHealthTimer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(GameScene.createHealth), userInfo: nil, repeats: true)
-            
+            powerUpHealthTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(GameScene.createHealth), userInfo: nil, repeats: true)
         }
     }
     
@@ -295,8 +283,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func shootLaser() {
         
         //Create a texture for the sprite and set it to the sprite node
-        let playerLaserTexture = SKTexture(imageNamed: "laserRed.png")
-        playerLaser = SKSpriteNode(texture: playerLaserTexture)
+        playerLaser = SKSpriteNode(texture: spriteSheet.laserRed())
         
         //Set the z position so that the sprite is behind the players ship
         playerLaser.zPosition = -0.5
@@ -306,7 +293,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerLaser.position.y = playerShip.position.y - 300
         
         //Create the physics body for the player ship's laser
-        playerLaser.physicsBody = SKPhysicsBody(rectangleOfSize: playerLaserTexture.size())
+        playerLaser.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.laserRed().size())
         playerLaser.physicsBody?.dynamic = true
         playerLaser.physicsBody?.affectedByGravity = false
         
@@ -328,18 +315,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func shootEnemyLaser() -> SKSpriteNode {
         
         //Create a texture for the sprite and set it to the sprite node
-        //var theEnemyLaser = SKSpriteNode()
-        let enemyLaserTexture = SKTexture(imageNamed: "laserBlue.png")
-        enemyLaser = SKSpriteNode(texture: enemyLaserTexture)
+        enemyLaser = SKSpriteNode(texture: spriteSheet.laserBlue())
         
-        
-            
         //Set the z position so that the sprite is behind the enemy ship
         enemyLaser.zPosition = -0.5
         
-        
         //Create the physics body for the enemy ship's laser
-        enemyLaser.physicsBody = SKPhysicsBody(rectangleOfSize: enemyLaserTexture.size())
+        enemyLaser.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.laserBlue().size())
         enemyLaser.physicsBody?.dynamic = true
         
         //Set the mask to detect the types of collisions for the player ship's laser
@@ -354,11 +336,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Create Player Ship
     func createPlayerShip(){
         
-        let playerShipTexture = SKTexture(imageNamed: "playerShipRed.png")
         playerShip = SKSpriteNode(texture: spriteSheet.playerShip())
         playerShip.position = CGPointMake(self.size.width/2, self.size.height/5)
         
-        playerShip.physicsBody = SKPhysicsBody(rectangleOfSize: playerShipTexture.size())
+        playerShip.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.playerShip().size())
         playerShip.physicsBody?.dynamic = true
         playerShip.physicsBody?.affectedByGravity = false
         playerShip.physicsBody?.allowsRotation = false
@@ -378,8 +359,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func showEnemyShip1() {
         
         //Declare a constant to hold the texture and set it to the node. Set the position of the ship outside of the frame plus 200 as a starting point
-        let enemyShip1Texture = SKTexture(imageNamed: "enemyShip1.png")
-        enemyShip1 = SKSpriteNode(texture: enemyShip1Texture)
+        enemyShip1 = SKSpriteNode(texture: spriteSheet.enemyShip1())
         enemyShip1.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame) + 200)
         enemyShip1.name = "enemyShip1"
         
@@ -391,7 +371,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //Set the phyics body of the enemy ship 1
-        enemyShip1.physicsBody = SKPhysicsBody(rectangleOfSize: enemyShip1Texture.size())
+        enemyShip1.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.enemyShip1().size())
         enemyShip1.physicsBody?.dynamic = false
         enemyShip1.physicsBody?.allowsRotation = false
         enemyShip1.runAction(showAndRemoveEnemy)
@@ -425,8 +405,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func showEnemyShip2() {
         
         //Declare a constant to hold the texture and set it to the node. Set the position of the ship outside of the frame plus 200 as a starting point
-        let enemyShip2Texture = SKTexture(imageNamed: "enemyShip2.png")
-        enemyShip2 = SKSpriteNode(texture: enemyShip2Texture)
+        enemyShip2 = SKSpriteNode(texture: spriteSheet.enemyShip2())
         enemyShip2.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame) + 200)
         enemyShip2.name = "enemyShip2"
         
@@ -438,7 +417,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //Set the phyics body of the enemy ship 1
-        enemyShip2.physicsBody = SKPhysicsBody(rectangleOfSize: enemyShip2Texture.size())
+        enemyShip2.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.enemyShip2().size())
         enemyShip2.physicsBody?.dynamic = false
         enemyShip2.physicsBody?.allowsRotation = false
         enemyShip2.runAction(showAndRemoveEnemy)
@@ -474,8 +453,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func showEnemyShip3() {
         
         //Declare a constant to hold the texture and set it to the node. Set the position of the ship outside of the frame plus 200 as a starting point
-        let enemyShip3Texture = SKTexture(imageNamed: "enemyShip3.png")
-        enemyShip3 = SKSpriteNode(texture: enemyShip3Texture)
+        enemyShip3 = SKSpriteNode(texture:spriteSheet.enemyShip3())
         enemyShip3.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame) + 200)
         enemyShip3.name = "enemyShip3"
         
@@ -487,7 +465,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //Set the phyics body of the enemy ship 1
-        enemyShip3.physicsBody = SKPhysicsBody(rectangleOfSize: enemyShip3Texture.size())
+        enemyShip3.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.enemyShip3().size())
         enemyShip3.physicsBody?.dynamic = false
         enemyShip3.physicsBody?.allowsRotation = false
         enemyShip3.runAction(showAndRemoveEnemy)
@@ -522,10 +500,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createMetor1 () {
         
-        let meteor1Texture = SKTexture(imageNamed: "meteor1.png")
-        meteor1 = SKSpriteNode(texture: meteor1Texture)
+        meteor1 = SKSpriteNode(texture: spriteSheet.meteor1())
         meteor1.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
-        meteor1.physicsBody = SKPhysicsBody(rectangleOfSize: meteor1Texture.size())
+        meteor1.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor1().size())
         meteor1.physicsBody?.dynamic = false
         meteor1.physicsBody?.allowsRotation = true
         
@@ -545,10 +522,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createMetor2 () {
         
-        let meteor2Texture = SKTexture(imageNamed: "meteor1.png")
-        meteor2 = SKSpriteNode(texture: meteor2Texture)
+        meteor2 = SKSpriteNode(texture: spriteSheet.meteor2())
         meteor2.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
-        meteor2.physicsBody = SKPhysicsBody(rectangleOfSize: meteor2Texture.size())
+        meteor2.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor2().size())
         meteor2.physicsBody?.dynamic = false
         meteor2.physicsBody?.allowsRotation = true
         
@@ -567,10 +543,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createMetor3 () {
         
-        let meteor3Texture = SKTexture(imageNamed: "meteor3.png")
-        meteor3 = SKSpriteNode(texture: meteor3Texture)
+        meteor3 = SKSpriteNode(texture: spriteSheet.meteor3())
         meteor3.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
-        meteor3.physicsBody = SKPhysicsBody(rectangleOfSize: meteor3Texture.size())
+        meteor3.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor3().size())
         meteor3.physicsBody?.dynamic = false
         meteor3.physicsBody?.allowsRotation = true
         
@@ -589,10 +564,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createMetor4 () {
         
-        let meteor4Texture = SKTexture(imageNamed: "meteor4.png")
-        meteor4 = SKSpriteNode(texture: meteor4Texture)
+        meteor4 = SKSpriteNode(texture: spriteSheet.meteor4())
         meteor4.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
-        meteor4.physicsBody = SKPhysicsBody(rectangleOfSize: meteor4Texture.size())
+        meteor4.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor4().size())
         meteor4.physicsBody?.dynamic = false
         meteor4.physicsBody?.allowsRotation = true
         
@@ -612,10 +586,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func createMetor5 () {
         
-        let meteor5Texture = SKTexture(imageNamed: "meteor5.png")
-        meteor5 = SKSpriteNode(texture: meteor5Texture)
+        meteor5 = SKSpriteNode(texture: spriteSheet.meteor5())
         meteor5.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
-        meteor5.physicsBody = SKPhysicsBody(rectangleOfSize: meteor5Texture.size())
+        meteor5.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor5().size())
         meteor5.physicsBody?.dynamic = false
         meteor5.physicsBody?.allowsRotation = true
         
@@ -635,47 +608,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: Power Ups
     
-    //Method creates the power up for the shield Icon to appear
-    func createShield (){
-        
-        let shieldTexture = SKTexture(imageNamed: "PowerUpShield.png")
-        shield = SKSpriteNode(texture: shieldTexture)
-        shield.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
-        shield.physicsBody = SKPhysicsBody(rectangleOfSize: shieldTexture.size())
-        shield.physicsBody?.dynamic = false
-        
-        let showShield = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
-        let removeShield = SKAction.removeFromParent()
-        let showAndRemoveShield = SKAction.sequence([showShield, removeShield])
-        
-        
-        shield.physicsBody?.categoryBitMask = CollisionType.ShieldPowerUp.rawValue
-        shield.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
-        shield.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        shield.runAction(showAndRemoveShield)
-        self.addChild(shield)
-    }
-    
-    
+    //Method creates the power up for the Health Icon to appear
     func createHealth () {
         
-        let playerHealthTexture = SKTexture(imageNamed: "PowerUpHealth.png")
-        playerHealth = SKSpriteNode(texture: playerHealthTexture)
-        playerHealth.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxX(self.frame))
-        playerHealth.physicsBody = SKPhysicsBody(rectangleOfSize: playerHealthTexture.size())
-        playerHealth.physicsBody?.dynamic = false
+        powerUpHealth = SKSpriteNode(texture: spriteSheet.PowerUpHealth())
+        powerUpHealth.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
+        powerUpHealth.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.PowerUpHealth().size())
+        powerUpHealth.physicsBody?.dynamic = false
         
         let showHealthPowerUp = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
         let removeHealthPowerUp = SKAction.removeFromParent()
         let showAndRemoveHealthPowerUp = SKAction.sequence([showHealthPowerUp, removeHealthPowerUp])
         
-        playerHealth.physicsBody?.categoryBitMask = CollisionType.ShieldPowerUp.rawValue
-        playerHealth.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
-        playerHealth.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
+        powerUpHealth.physicsBody?.categoryBitMask = CollisionType.HealthPowerUp.rawValue
+        powerUpHealth.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
+        powerUpHealth.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        playerHealth.runAction(showAndRemoveHealthPowerUp)
-        allObjects.addChild(playerHealth)
+        powerUpHealth.runAction(showAndRemoveHealthPowerUp)
+        self.addChild(powerUpHealth)
         
     }
     
@@ -694,8 +644,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //Create a texture and set it equal to the node. Create the size and set the it to the center of the HUD. Give it a name to identifiy when it has been touched and add it to the scene.
-        let pauseButtonTexture = SKTexture(imageNamed: "pauseButton.png")
-        pauseButton = SKSpriteNode(texture: pauseButtonTexture)
+        pauseButton = SKSpriteNode(texture: spriteSheet.pauseButton())
         pauseButton.size = CGSizeMake(hudContainer.size.width / 10, hudContainer.size.height)
         pauseButton.position = CGPointMake(hudContainer.size.width - 100, hudContainer.size.height / 2)
         pauseButton.name = "PauseButton"
@@ -718,12 +667,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyShip1Timer.invalidate()
         enemyShip2Timer.invalidate()
         enemyShip3Timer.invalidate()
+        meteor1Timer.invalidate()
+        meteor2Timer.invalidate()
+        meteor3Timer.invalidate()
+        meteor4Timer.invalidate()
+        meteor5Timer.invalidate()
         
         let alert = UIAlertController(title: "Space Runner", message: "Game Paused", preferredStyle: UIAlertControllerStyle.Alert)
         
         alert.addAction(UIAlertAction(title: "Continue Playing", style: UIAlertActionStyle.Default) { _ in
             self.view?.paused = false
             self.runEnemyShipTimer()
+            self.runMeteorTimer()
         })
         
         self.view?.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
@@ -759,7 +714,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBeginContact(contact: SKPhysicsContact) {
         
         let playerExplode = SKAction.animateWithTextures(spriteSheet.playerExplode(), timePerFrame: 0.02)
-        let enemyExplode = SKAction.animateWithTextures(spriteSheet.enemyExplode(), timePerFrame: 0.02)
+        let enemyExplode = SKAction.animateWithTextures(spriteSheet.enemyExplode(), timePerFrame: 0.5)
         
         //Method removes the enemy ship & laser from the screen when it is called
         func enemyDestroyed(enemy: SKSpriteNode, laserShot: SKSpriteNode){
@@ -772,7 +727,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemyShip1.removeFromParent()
             enemyShip2.removeFromParent()
             enemyShip3.removeFromParent()
-            enemy.runAction(enemyExplode)
+            enemyShip1.runAction(enemyExplode)
             runAction(enemyBlownUp)
 
         }
@@ -781,6 +736,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         func playerShipHit () {
             
             hitCount += 1
+            
+            createPowerUpHealth()
             
         }
         
@@ -801,20 +758,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Conditional statement to check if the player ship contacts a power up. If so remove the power up and alert the player by audio and add the power up
         if (firstBody.categoryBitMask == CollisionType.HealthPowerUp.rawValue && secondBody.categoryBitMask == CollisionType.PlayerShip.rawValue) || (firstBody.categoryBitMask == CollisionType.PlayerShip.rawValue && secondBody.categoryBitMask == CollisionType.HealthPowerUp.rawValue) {
             
-            hitCount - 1
-            
             switch hitCount {
             case 1:
                 shipDamage1.removeFromParent()
+                powerUpHealth.removeFromParent()
+                runAction(playerHealthAudio)
+                powerUpHealthTimer.invalidate()
+                hitCount = hitCount - 1
             case 2:
                 shipDamage2.removeFromParent()
+                powerUpHealth.removeFromParent()
+                runAction(playerHealthAudio)
+                hitCount = hitCount - 1
             case 3:
                 shipDamage3.removeFromParent()
+                powerUpHealth.removeFromParent()
+                runAction(playerHealthAudio)
+                hitCount = hitCount - 1
             default:
                 print("No More Health")
             }
             
-            runAction(playerHeathAudio)
             
         }
         
@@ -837,18 +801,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 runAction(enemyBlownUp)
                 playerShip.addChild(shipDamage3)
             default:
+                playerShip.removeAllChildren()
                 playerShip.runAction(playerExplode)
                 enemyLaser.removeFromParent()
                 runAction(playerBlownUp)
                 enemyShip1Timer.invalidate()
                 enemyShip2Timer.invalidate()
                 enemyShip3Timer.invalidate()
-                playerShip.runAction(playerExplode)
+                meteor1Timer.invalidate()
+                meteor2Timer.invalidate()
+                meteor3Timer.invalidate()
+                meteor4Timer.invalidate()
+                meteor5Timer.invalidate()
                 fireButton?.userInteractionEnabled = false
                 pauseButton.userInteractionEnabled = false
                 rain?.paused = true
-                self.speed = 0
-                gameOver()
+                //self.speed = 0
+                _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(GameScene.gameOver), userInfo: nil, repeats: false)
+                
             }
             
         }

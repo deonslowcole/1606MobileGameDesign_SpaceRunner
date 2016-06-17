@@ -7,7 +7,7 @@
             <key>generator</key>
             <string>TexturePacker 4.2.2 - http://www.codeandweb.com/texturepacker</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1dd7df130d2af3efad3759a57b67c2b8:71879ffac5402b173760067ecf90c6e1:5dcba6bb55ad504fda728d650ef423fa$</string>
+            <string>$TexturePacker:SmartUpdate:ce696aed6ac2b50eb2db4574e06719e7:bc368832cb0db4b0984338abeddb2ea3:5dcba6bb55ad504fda728d650ef423fa$</string>
         </dict>
         <key>format</key>
         <string>APPL</string>
@@ -266,6 +266,22 @@
                         <key>isFullyOpaque</key>
                         <false/>
                         <key>name</key>
+                        <string>PowerUpHealth.png</string>
+                        <key>spriteOffset</key>
+                        <string>{0,0}</string>
+                        <key>spriteSourceSize</key>
+                        <string>{34,33}</string>
+                        <key>textureRect</key>
+                        <string>{{46,203},{34,33}}</string>
+                        <key>textureRotated</key>
+                        <false/>
+                    </dict>
+                    <dict>
+                        <key>aliases</key>
+                        <array/>
+                        <key>isFullyOpaque</key>
+                        <false/>
+                        <key>name</key>
                         <string>laserBlue.png</string>
                         <key>spriteOffset</key>
                         <string>{0,0}</string>
@@ -288,23 +304,7 @@
                         <key>spriteSourceSize</key>
                         <string>{9,54}</string>
                         <key>textureRect</key>
-                        <string>{{46,203},{54,9}}</string>
-                        <key>textureRotated</key>
-                        <true/>
-                    </dict>
-                    <dict>
-                        <key>aliases</key>
-                        <array/>
-                        <key>isFullyOpaque</key>
-                        <false/>
-                        <key>name</key>
-                        <string>meteor4.png</string>
-                        <key>spriteOffset</key>
-                        <string>{0,0}</string>
-                        <key>spriteSourceSize</key>
-                        <string>{28,28}</string>
-                        <key>textureRect</key>
-                        <string>{{46,214},{28,28}}</string>
+                        <string>{{206,102},{9,54}}</string>
                         <key>textureRotated</key>
                         <false/>
                     </dict>
@@ -336,7 +336,23 @@
                         <key>spriteSourceSize</key>
                         <string>{25,24}</string>
                         <key>textureRect</key>
-                        <string>{{76,214},{25,24}}</string>
+                        <string>{{398,165},{25,24}}</string>
+                        <key>textureRotated</key>
+                        <false/>
+                    </dict>
+                    <dict>
+                        <key>aliases</key>
+                        <array/>
+                        <key>isFullyOpaque</key>
+                        <false/>
+                        <key>name</key>
+                        <string>meteor4.png</string>
+                        <key>spriteOffset</key>
+                        <string>{0,0}</string>
+                        <key>spriteSourceSize</key>
+                        <string>{28,28}</string>
+                        <key>textureRect</key>
+                        <string>{{159,188},{28,28}}</string>
                         <key>textureRotated</key>
                         <false/>
                     </dict>
@@ -352,7 +368,7 @@
                         <key>spriteSourceSize</key>
                         <string>{25,24}</string>
                         <key>textureRect</key>
-                        <string>{{398,165},{25,24}}</string>
+                        <string>{{153,218},{25,24}}</string>
                         <key>textureRotated</key>
                         <false/>
                     </dict>
@@ -368,23 +384,7 @@
                         <key>spriteSourceSize</key>
                         <string>{24,24}</string>
                         <key>textureRect</key>
-                        <string>{{159,188},{24,24}}</string>
-                        <key>textureRotated</key>
-                        <false/>
-                    </dict>
-                    <dict>
-                        <key>aliases</key>
-                        <array/>
-                        <key>isFullyOpaque</key>
-                        <false/>
-                        <key>name</key>
-                        <string>PowerUpHealth.png</string>
-                        <key>spriteOffset</key>
-                        <string>{0,0}</string>
-                        <key>spriteSourceSize</key>
-                        <string>{22,21}</string>
-                        <key>textureRect</key>
-                        <string>{{153,214},{22,21}}</string>
+                        <string>{{180,218},{24,24}}</string>
                         <key>textureRotated</key>
                         <false/>
                     </dict>
