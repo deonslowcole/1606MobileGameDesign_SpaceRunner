@@ -10,6 +10,8 @@
 		E35528031D05DA90009979E3 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E35528021D05DA90009979E3 /* Fire.sks */; };
 		E35585411D03E9B900E27F86 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = E355853F1D03E9B900E27F86 /* Rain.sks */; };
 		E35585421D03E9B900E27F86 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E35585401D03E9B900E27F86 /* spark.png */; };
+		E36DC2DC1D0F3BE500F1694F /* EnemyLaserShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36DC2DB1D0F3BE500F1694F /* EnemyLaserShot.mp3 */; };
+		E36DC2E01D109F2E00F1694F /* MissionFailed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36DC2DF1D109F2E00F1694F /* MissionFailed.mp3 */; };
 		E386E4511D0226AE009BB68E /* PlayerLaserShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */; };
 		E386E4531D0276F9009BB68E /* powerUpHealth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */; };
 		E386E4551D02772B009BB68E /* powerUpWeapon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */; };
@@ -22,12 +24,16 @@
 		E39EA62E1D013EAA00FA08ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62D1D013EAA00FA08ED /* Assets.xcassets */; };
 		E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62F1D013EAA00FA08ED /* LaunchScreen.storyboard */; };
 		E39FC8CE1D0A73C100CB83A3 /* EnemyBlowUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */; };
+		E3C95BFF1D132ABA0088B118 /* SpaceRunnerSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C95BFD1D132ABA0088B118 /* SpaceRunnerSprites.swift */; };
+		E3C95C001D132ABA0088B118 /* SpaceRunnerSprites.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = E3C95BFE1D132ABA0088B118 /* SpaceRunnerSprites.atlasc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E35528021D05DA90009979E3 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		E355853F1D03E9B900E27F86 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		E35585401D03E9B900E27F86 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		E36DC2DB1D0F3BE500F1694F /* EnemyLaserShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyLaserShot.mp3; sourceTree = "<group>"; };
+		E36DC2DF1D109F2E00F1694F /* MissionFailed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MissionFailed.mp3; sourceTree = "<group>"; };
 		E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PlayerLaserShot.mp3; sourceTree = "<group>"; };
 		E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = powerUpHealth.mp3; sourceTree = "<group>"; };
 		E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = powerUpWeapon.mp3; sourceTree = "<group>"; };
@@ -42,6 +48,8 @@
 		E39EA6301D013EAA00FA08ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E39EA6321D013EAA00FA08ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyBlowUp.mp3; sourceTree = "<group>"; };
+		E3C95BFD1D132ABA0088B118 /* SpaceRunnerSprites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceRunnerSprites.swift; sourceTree = "<group>"; };
+		E3C95BFE1D132ABA0088B118 /* SpaceRunnerSprites.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpaceRunnerSprites.atlasc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,11 +75,13 @@
 		E386E44F1D020A08009BB68E /* SFX */ = {
 			isa = PBXGroup;
 			children = (
+				E36DC2DB1D0F3BE500F1694F /* EnemyLaserShot.mp3 */,
 				E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */,
 				E386E4521D0276F9009BB68E /* powerUpHealth.mp3 */,
 				E386E4541D02772B009BB68E /* powerUpWeapon.mp3 */,
 				E386E4561D027744009BB68E /* powerUpShield.mp3 */,
 				E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */,
+				E36DC2DF1D109F2E00F1694F /* MissionFailed.mp3 */,
 			);
 			name = SFX;
 			sourceTree = "<group>";
@@ -95,6 +105,8 @@
 		E39EA6211D013EAA00FA08ED /* Space_Runner */ = {
 			isa = PBXGroup;
 			children = (
+				E3C95BFD1D132ABA0088B118 /* SpaceRunnerSprites.swift */,
+				E3C95BFE1D132ABA0088B118 /* SpaceRunnerSprites.atlasc */,
 				E39EA6221D013EAA00FA08ED /* AppDelegate.swift */,
 				E39EA6241D013EAA00FA08ED /* GameScene.sks */,
 				E39EA6261D013EAA00FA08ED /* GameScene.swift */,
@@ -171,14 +183,17 @@
 			files = (
 				E35528031D05DA90009979E3 /* Fire.sks in Resources */,
 				E35585411D03E9B900E27F86 /* Rain.sks in Resources */,
+				E3C95C001D132ABA0088B118 /* SpaceRunnerSprites.atlasc in Resources */,
 				E39EA6251D013EAA00FA08ED /* GameScene.sks in Resources */,
 				E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */,
+				E36DC2E01D109F2E00F1694F /* MissionFailed.mp3 in Resources */,
 				E39FC8CE1D0A73C100CB83A3 /* EnemyBlowUp.mp3 in Resources */,
 				E386E4571D027744009BB68E /* powerUpShield.mp3 in Resources */,
 				E386E4551D02772B009BB68E /* powerUpWeapon.mp3 in Resources */,
 				E35585421D03E9B900E27F86 /* spark.png in Resources */,
 				E39EA62E1D013EAA00FA08ED /* Assets.xcassets in Resources */,
 				E39EA62C1D013EAA00FA08ED /* Main.storyboard in Resources */,
+				E36DC2DC1D0F3BE500F1694F /* EnemyLaserShot.mp3 in Resources */,
 				E386E4511D0226AE009BB68E /* PlayerLaserShot.mp3 in Resources */,
 				E386E4531D0276F9009BB68E /* powerUpHealth.mp3 in Resources */,
 			);
@@ -194,6 +209,7 @@
 				E39EA6271D013EAA00FA08ED /* GameScene.swift in Sources */,
 				E39EA6291D013EAA00FA08ED /* GameViewController.swift in Sources */,
 				E39EA6231D013EAA00FA08ED /* AppDelegate.swift in Sources */,
+				E3C95BFF1D132ABA0088B118 /* SpaceRunnerSprites.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
