@@ -74,11 +74,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case PlayerShip = 1
         case Object = 2
         case Laser = 4
-        case ShieldPowerUp = 5
-        case EnemyLaser = 6
-        case HealthPowerUp = 7
-        case PlayerShipShield = 8
-        case enemyShip = 9
+//        case ShieldPowerUp = 5
+        case EnemyLaser = 8
+        case HealthPowerUp = 16
+        case PlayerShipShield = 32
+        case enemyShip = 64
     }
     
     //Create a node for the background image
@@ -124,18 +124,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Call the method to create the player's ship
         createPlayerShip()
         
-        enemyExplode1 = SKSpriteNode(texture: spriteSheet.enemyExplode_01())
-        enemyExplode2 = SKSpriteNode(texture: spriteSheet.enemyExplode_02())
-        enemyExplode3 = SKSpriteNode(texture: spriteSheet.enemyExplode_03())
-        
         
         let playerShipShieldTexture = SKTexture(imageNamed: "PlayerShipShield.png")
         playerShipShield = SKSpriteNode(texture: playerShipShieldTexture)
-        
-        //Pull textures from the sprite sheet to diaplay damage to the player's ship
-        shipDamage1 = SKSpriteNode(texture: spriteSheet.playerShipDamage1())
-        shipDamage2 = SKSpriteNode(texture: spriteSheet.playerShipDamage2())
-        shipDamage3 = SKSpriteNode(texture: spriteSheet.playerShipDamage3())
         
     
        //Call the method to add the enemy ships
@@ -143,6 +134,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Call the method to add the enemy ships
         runMeteorTimer()
+        
+        //Set textures for the player ship damage
+        shipDamage1 = SKSpriteNode(texture: spriteSheet.playerShipDamage1())
+        shipDamage2 = SKSpriteNode(texture: spriteSheet.playerShipDamage2())
+        shipDamage3 = SKSpriteNode(texture: spriteSheet.playerShipDamage3())
         
         
         //Create emmiter nodes to add effect/animation to the scene.
@@ -300,7 +296,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Set the mask to detect the types of collisions for the player ship's laser
         playerLaser.physicsBody?.categoryBitMask = CollisionType.Laser.rawValue
         playerLaser.physicsBody?.contactTestBitMask = CollisionType.Object.rawValue
-        playerLaser.physicsBody?.collisionBitMask = CollisionType.ShieldPowerUp.rawValue
+//        playerLaser.physicsBody?.collisionBitMask = CollisionType.ShieldPowerUp.rawValue
         
         //Create a action to move the laser along the y axis with a duration of half a second and run the action
         let shoot = SKAction.moveToY(self.size.height, duration: 0.5)
@@ -327,7 +323,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Set the mask to detect the types of collisions for the player ship's laser
         enemyLaser.physicsBody?.categoryBitMask = CollisionType.EnemyLaser.rawValue
         enemyLaser.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
-        enemyLaser.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
+        enemyLaser.physicsBody?.collisionBitMask = 0
 
         return enemyLaser
         
@@ -353,148 +349,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    //MARK: Enemy Ships
     
-    //Method that creates the new enemy ships onto the scene
-    func showEnemyShip1() {
-        
-        //Declare a constant to hold the texture and set it to the node. Set the position of the ship outside of the frame plus 200 as a starting point
-        enemyShip1 = SKSpriteNode(texture: spriteSheet.enemyShip1())
-        enemyShip1.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame) + 200)
-        enemyShip1.name = "enemyShip1"
-        
-        
-        //Declare constants for moving the enemy ship. Start it out of frame at the top of the screen and move it downwards in the timeframe of the size of the frame divided by 200. Once it is out of frame remove it from the parent. Use a SKAction sequence to run both actions
-        let showEnemy = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
-        let removeEnemy = SKAction.removeFromParent()
-        let showAndRemoveEnemy = SKAction.sequence([showEnemy, removeEnemy])
-        
-        
-        //Set the phyics body of the enemy ship 1
-        enemyShip1.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.enemyShip1().size())
-        enemyShip1.physicsBody?.dynamic = false
-        enemyShip1.physicsBody?.allowsRotation = false
-        enemyShip1.runAction(showAndRemoveEnemy)
-        
-        //Set the mask to detect the types of collisions for the enemy ship 1
-        enemyShip1.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
-        enemyShip1.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
-        enemyShip1.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        //Set the position of the sprite equal to the anchor point of the enemy ship and set the height and width.
-        shootEnemyLaser().position.x = enemyShip1.anchorPoint.x
-        shootEnemyLaser().position.y = enemyShip1.position.y - 300
-        
-        //Set the mask to detect the types of collisions for the enemy ship's laser
-        shootEnemyLaser().physicsBody?.categoryBitMask = CollisionType.EnemyLaser.rawValue
-        shootEnemyLaser().physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
-        shootEnemyLaser().physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        //Create a action to move the laser along the y axis with a duration of half a second and run the action
-        let enemyShot = SKAction.moveToY(-self.size.height, duration: 2)
-        shootEnemyLaser().runAction(enemyShot)
-        
-        //Add the laser to the enemy ship
-        enemyShip1.addChild(shootEnemyLaser())
-        runAction(enemyLaserAudio)
-        
-        //Add the enemy ship to the scene
-        allObjects.addChild(enemyShip1)
-    }
-    
-    func showEnemyShip2() {
-        
-        //Declare a constant to hold the texture and set it to the node. Set the position of the ship outside of the frame plus 200 as a starting point
-        enemyShip2 = SKSpriteNode(texture: spriteSheet.enemyShip2())
-        enemyShip2.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame) + 200)
-        enemyShip2.name = "enemyShip2"
-        
-        
-        //Declare constants for moving the enemy ship. Start it out of frame at the top of the screen and move it downwards in the timeframe of the size of the frame divided by 200. Once it is out of frame remove it from the parent. Use a SKAction sequence to run both actions
-        let showEnemy = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
-        let removeEnemy = SKAction.removeFromParent()
-        let showAndRemoveEnemy = SKAction.sequence([showEnemy, removeEnemy])
-        
-        
-        //Set the phyics body of the enemy ship 1
-        enemyShip2.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.enemyShip2().size())
-        enemyShip2.physicsBody?.dynamic = false
-        enemyShip2.physicsBody?.allowsRotation = false
-        enemyShip2.runAction(showAndRemoveEnemy)
-        
-        //Set the mask to detect the types of collisions for the enemy ship 1
-        enemyShip2.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
-        enemyShip2.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
-        enemyShip2.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        //Set the position of the sprite equal to the anchor point of the enemy ship and set the height and width.
-        shootEnemyLaser().position.x = enemyShip2.anchorPoint.x
-        shootEnemyLaser().position.y = enemyShip2.position.y - 300
-        
-        //Set the mask to detect the types of collisions for the enemy ship's laser
-        shootEnemyLaser().physicsBody?.categoryBitMask = CollisionType.EnemyLaser.rawValue
-        shootEnemyLaser().physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
-        shootEnemyLaser().physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        //Create a action to move the laser along the y axis with a duration of half a second and run the action
-        let enemyFired = SKAction.moveToY(-self.size.height, duration: 2)
-        shootEnemyLaser().runAction(enemyFired)
-        
-        //add the enemy laser to the ship
-        enemyShip2.addChild(shootEnemyLaser())
-        runAction(enemyLaserAudio)
-        
-        //add the enemy ship to the scene
-        allObjects.addChild(enemyShip2)
-    }
-    
-    
-    
-    func showEnemyShip3() {
-        
-        //Declare a constant to hold the texture and set it to the node. Set the position of the ship outside of the frame plus 200 as a starting point
-        enemyShip3 = SKSpriteNode(texture:spriteSheet.enemyShip3())
-        enemyShip3.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame) + 200)
-        enemyShip3.name = "enemyShip3"
-        
-        
-        //Declare constants for moving the enemy ship. Start it out of frame at the top of the screen and move it downwards in the timeframe of the size of the frame divided by 200. Once it is out of frame remove it from the parent. Use a SKAction sequence to run both actions
-        let showEnemy = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
-        let removeEnemy = SKAction.removeFromParent()
-        let showAndRemoveEnemy = SKAction.sequence([showEnemy, removeEnemy])
-        
-        
-        //Set the phyics body of the enemy ship 1
-        enemyShip3.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.enemyShip3().size())
-        enemyShip3.physicsBody?.dynamic = false
-        enemyShip3.physicsBody?.allowsRotation = false
-        enemyShip3.runAction(showAndRemoveEnemy)
-        
-        //Set the mask to detect the types of collisions for the enemy ship 1
-        enemyShip3.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
-        enemyShip3.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
-        enemyShip3.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        //Set the position of the sprite equal to the anchor point of the enemy ship and set the height and width.
-        shootEnemyLaser().position.x = enemyShip3.anchorPoint.x
-        shootEnemyLaser().position.y = enemyShip3.position.y - 300
-        
-        //Set the mask to detect the types of collisions for the enemy ship's laser
-        shootEnemyLaser().physicsBody?.categoryBitMask = CollisionType.EnemyLaser.rawValue
-        shootEnemyLaser().physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
-        shootEnemyLaser().physicsBody?.collisionBitMask = CollisionType.Object.rawValue
-        
-        //Create a action to move the laser along the y axis with a duration of half a second and run the action
-        let enemyShot = SKAction.moveToY(-self.size.height, duration: 2)
-        shootEnemyLaser().runAction(enemyShot)
-        
-        //add the enemy laser to the ship
-        enemyShip3.addChild(shootEnemyLaser())
-        runAction(enemyLaserAudio)
-        
-        //add the enemy ship to the scene
-        allObjects.addChild(enemyShip3)
-    }
     
     //MARK: Meteors
     
@@ -713,32 +568,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Method is called when there is contact between two entities
     func didBeginContact(contact: SKPhysicsContact) {
         
-        let playerExplode = SKAction.animateWithTextures(spriteSheet.playerExplode(), timePerFrame: 0.02)
-        let enemyExplode = SKAction.animateWithTextures(spriteSheet.enemyExplode(), timePerFrame: 0.5)
+        let playerExplode = SKAction.animateWithTextures(spriteSheet.playerExplode(), timePerFrame: 0.08)
+        let enemyExplode = SKAction.animateWithTextures(spriteSheet.enemyExplode(), timePerFrame: 0.03)
+        let fade = SKAction.fadeOutWithDuration(0.05)
+        let remove = SKAction.removeFromParent()
+        let enemyExplodeAndFade = SKAction.sequence([enemyExplode, fade, remove])
+        let playerExplodeAndFade = SKAction.sequence([playerExplode, fade, remove])
         
-        //Method removes the enemy ship & laser from the screen when it is called
-        func enemyDestroyed(enemy: SKSpriteNode, laserShot: SKSpriteNode){
-            
-            print("Destroyed")
-            print(enemy.name)
-            
-            playerScore = playerScore + 20
-            playerLaser.removeFromParent()
-            enemyShip1.removeFromParent()
-            enemyShip2.removeFromParent()
-            enemyShip3.removeFromParent()
-            enemyShip1.runAction(enemyExplode)
-            runAction(enemyBlownUp)
-
-        }
         
         //Method runs add one when the player's ship has been hit/damaged
         func playerShipHit () {
             
-            hitCount += 1
+            hitCount = hitCount + 1
             
-            createPowerUpHealth()
-            
+            if hitCount == 1 {
+                createPowerUpHealth()
+            }
         }
         
         
@@ -749,7 +594,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Use a conditional to check if the laser hit a enemy ship
         if firstBody.categoryBitMask == CollisionType.Object.rawValue && secondBody.categoryBitMask == CollisionType.Laser.rawValue || firstBody.categoryBitMask == CollisionType.Laser.rawValue && secondBody.categoryBitMask == CollisionType.Object.rawValue {
             
-            enemyDestroyed(firstBody.node as! SKSpriteNode, laserShot: secondBody.node as! SKSpriteNode)
+            
+            if firstBody.node!.name == "enemyShip1" || secondBody.node!.name == "enemyShip1" {
+                enemyShip1.runAction(enemyExplodeAndFade)
+                playerScore = playerScore + 20
+                runAction(enemyBlownUp)
+                playerLaser.removeFromParent()
+            } else if firstBody.node!.name == "enemyShip2" || secondBody.node!.name == "enemyShip2" {
+                enemyShip2.runAction(enemyExplodeAndFade)
+                playerScore = playerScore + 20
+                runAction(enemyBlownUp)
+                playerLaser.removeFromParent()
+            } else if firstBody.node!.name == "enemyShip3" || secondBody.node!.name == "enemyShip3" {
+                enemyShip3.runAction(enemyExplodeAndFade)
+                playerScore = playerScore + 20
+                runAction(enemyBlownUp)
+                playerLaser.removeFromParent()
+            }
+          
             
         }
         
@@ -765,16 +627,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 runAction(playerHealthAudio)
                 powerUpHealthTimer.invalidate()
                 hitCount = hitCount - 1
+                playerScore = playerScore + 30
             case 2:
                 shipDamage2.removeFromParent()
                 powerUpHealth.removeFromParent()
                 runAction(playerHealthAudio)
                 hitCount = hitCount - 1
+                playerScore = playerScore + 40
             case 3:
                 shipDamage3.removeFromParent()
                 powerUpHealth.removeFromParent()
                 runAction(playerHealthAudio)
                 hitCount = hitCount - 1
+                playerScore = playerScore + 50
             default:
                 print("No More Health")
             }
@@ -802,7 +667,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 playerShip.addChild(shipDamage3)
             default:
                 playerShip.removeAllChildren()
-                playerShip.runAction(playerExplode)
+                playerShip.runAction(playerExplodeAndFade)
                 enemyLaser.removeFromParent()
                 runAction(playerBlownUp)
                 enemyShip1Timer.invalidate()
@@ -813,10 +678,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 meteor3Timer.invalidate()
                 meteor4Timer.invalidate()
                 meteor5Timer.invalidate()
+                powerUpHealthTimer.invalidate()
                 fireButton?.userInteractionEnabled = false
                 pauseButton.userInteractionEnabled = false
                 rain?.paused = true
-                //self.speed = 0
                 _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(GameScene.gameOver), userInfo: nil, repeats: false)
                 
             }

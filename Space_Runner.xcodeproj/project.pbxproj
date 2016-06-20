@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3472FDC1D17AB7F00717E8B /* EnemyShips.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */; };
 		E35528031D05DA90009979E3 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E35528021D05DA90009979E3 /* Fire.sks */; };
 		E35585411D03E9B900E27F86 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = E355853F1D03E9B900E27F86 /* Rain.sks */; };
 		E35585421D03E9B900E27F86 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E35585401D03E9B900E27F86 /* spark.png */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShips.swift; sourceTree = "<group>"; };
 		E35528021D05DA90009979E3 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		E355853F1D03E9B900E27F86 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		E35585401D03E9B900E27F86 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				E355853F1D03E9B900E27F86 /* Rain.sks */,
 				E35585401D03E9B900E27F86 /* spark.png */,
 				E35528021D05DA90009979E3 /* Fire.sks */,
+				E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */,
 			);
 			path = Space_Runner;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				E39EA6291D013EAA00FA08ED /* GameViewController.swift in Sources */,
 				E39EA6231D013EAA00FA08ED /* AppDelegate.swift in Sources */,
 				E3C95BFF1D132ABA0088B118 /* SpaceRunnerSprites.swift in Sources */,
+				E3472FDC1D17AB7F00717E8B /* EnemyShips.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
