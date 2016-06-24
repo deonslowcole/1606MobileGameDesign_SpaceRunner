@@ -8,9 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		E3472FDC1D17AB7F00717E8B /* EnemyShips.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */; };
+		E3472FDE1D19927300717E8B /* Meteors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3472FDD1D19927300717E8B /* Meteors.swift */; };
 		E35528031D05DA90009979E3 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E35528021D05DA90009979E3 /* Fire.sks */; };
 		E35585411D03E9B900E27F86 /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = E355853F1D03E9B900E27F86 /* Rain.sks */; };
 		E35585421D03E9B900E27F86 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = E35585401D03E9B900E27F86 /* spark.png */; };
+		E36093F41D1B9B2D0051B296 /* AboutScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36093F31D1B9B2D0051B296 /* AboutScene.swift */; };
+		E36093F61D1C3FE60051B296 /* Dissolve.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36093F51D1C3FE60051B296 /* Dissolve.mp3 */; };
+		E36093F81D1C40570051B296 /* SpaceDoorClose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36093F71D1C40570051B296 /* SpaceDoorClose.mp3 */; };
+		E36093FA1D1C413A0051B296 /* Foundations.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36093F91D1C413A0051B296 /* Foundations.mp3 */; };
+		E36093FC1D1C4F860051B296 /* TwoTone.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36093FB1D1C4F860051B296 /* TwoTone.mp3 */; };
+		E36093FE1D1C4F8E0051B296 /* Go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36093FD1D1C4F8E0051B296 /* Go.mp3 */; };
+		E36094001D1C4FB00051B296 /* Dont-Hold-Back.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36093FF1D1C4FB00051B296 /* Dont-Hold-Back.mp3 */; };
+		E36094061D1C71180051B296 /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36094051D1C71180051B296 /* TutorialScene.swift */; };
 		E36DC2DC1D0F3BE500F1694F /* EnemyLaserShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36DC2DB1D0F3BE500F1694F /* EnemyLaserShot.mp3 */; };
 		E36DC2E01D109F2E00F1694F /* MissionFailed.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E36DC2DF1D109F2E00F1694F /* MissionFailed.mp3 */; };
 		E386E4511D0226AE009BB68E /* PlayerLaserShot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */; };
@@ -29,9 +38,18 @@
 
 /* Begin PBXFileReference section */
 		E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShips.swift; sourceTree = "<group>"; };
+		E3472FDD1D19927300717E8B /* Meteors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteors.swift; sourceTree = "<group>"; };
 		E35528021D05DA90009979E3 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		E355853F1D03E9B900E27F86 /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
 		E35585401D03E9B900E27F86 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		E36093F31D1B9B2D0051B296 /* AboutScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutScene.swift; sourceTree = "<group>"; };
+		E36093F51D1C3FE60051B296 /* Dissolve.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Dissolve.mp3; sourceTree = "<group>"; };
+		E36093F71D1C40570051B296 /* SpaceDoorClose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SpaceDoorClose.mp3; sourceTree = "<group>"; };
+		E36093F91D1C413A0051B296 /* Foundations.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Foundations.mp3; sourceTree = "<group>"; };
+		E36093FB1D1C4F860051B296 /* TwoTone.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TwoTone.mp3; sourceTree = "<group>"; };
+		E36093FD1D1C4F8E0051B296 /* Go.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Go.mp3; sourceTree = "<group>"; };
+		E36093FF1D1C4FB00051B296 /* Dont-Hold-Back.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Dont-Hold-Back.mp3"; sourceTree = "<group>"; };
+		E36094051D1C71180051B296 /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		E36DC2DB1D0F3BE500F1694F /* EnemyLaserShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyLaserShot.mp3; sourceTree = "<group>"; };
 		E36DC2DF1D109F2E00F1694F /* MissionFailed.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MissionFailed.mp3; sourceTree = "<group>"; };
 		E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PlayerLaserShot.mp3; sourceTree = "<group>"; };
@@ -73,11 +91,17 @@
 		E386E44F1D020A08009BB68E /* SFX */ = {
 			isa = PBXGroup;
 			children = (
+				E36093FF1D1C4FB00051B296 /* Dont-Hold-Back.mp3 */,
+				E36093F91D1C413A0051B296 /* Foundations.mp3 */,
+				E36093F71D1C40570051B296 /* SpaceDoorClose.mp3 */,
+				E36093F51D1C3FE60051B296 /* Dissolve.mp3 */,
 				E36DC2DB1D0F3BE500F1694F /* EnemyLaserShot.mp3 */,
 				E386E4501D0226AE009BB68E /* PlayerLaserShot.mp3 */,
 				E386E4561D027744009BB68E /* powerUpHealth.mp3 */,
 				E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */,
 				E36DC2DF1D109F2E00F1694F /* MissionFailed.mp3 */,
+				E36093FB1D1C4F860051B296 /* TwoTone.mp3 */,
+				E36093FD1D1C4F8E0051B296 /* Go.mp3 */,
 			);
 			name = SFX;
 			sourceTree = "<group>";
@@ -115,6 +139,9 @@
 				E35585401D03E9B900E27F86 /* spark.png */,
 				E35528021D05DA90009979E3 /* Fire.sks */,
 				E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */,
+				E3472FDD1D19927300717E8B /* Meteors.swift */,
+				E36093F31D1B9B2D0051B296 /* AboutScene.swift */,
+				E36094051D1C71180051B296 /* TutorialScene.swift */,
 			);
 			path = Space_Runner;
 			sourceTree = "<group>";
@@ -179,13 +206,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				E35528031D05DA90009979E3 /* Fire.sks in Resources */,
+				E36093F61D1C3FE60051B296 /* Dissolve.mp3 in Resources */,
 				E35585411D03E9B900E27F86 /* Rain.sks in Resources */,
 				E3C95C021D148DB20088B118 /* SpaceRunnerSprites.atlasc in Resources */,
 				E39EA6251D013EAA00FA08ED /* GameScene.sks in Resources */,
 				E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */,
+				E36094001D1C4FB00051B296 /* Dont-Hold-Back.mp3 in Resources */,
 				E36DC2E01D109F2E00F1694F /* MissionFailed.mp3 in Resources */,
+				E36093FA1D1C413A0051B296 /* Foundations.mp3 in Resources */,
+				E36093F81D1C40570051B296 /* SpaceDoorClose.mp3 in Resources */,
+				E36093FC1D1C4F860051B296 /* TwoTone.mp3 in Resources */,
 				E39FC8CE1D0A73C100CB83A3 /* EnemyBlowUp.mp3 in Resources */,
 				E386E4571D027744009BB68E /* powerUpHealth.mp3 in Resources */,
+				E36093FE1D1C4F8E0051B296 /* Go.mp3 in Resources */,
 				E35585421D03E9B900E27F86 /* spark.png in Resources */,
 				E39EA62E1D013EAA00FA08ED /* Assets.xcassets in Resources */,
 				E39EA62C1D013EAA00FA08ED /* Main.storyboard in Resources */,
@@ -201,10 +234,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E36094061D1C71180051B296 /* TutorialScene.swift in Sources */,
 				E39EA6271D013EAA00FA08ED /* GameScene.swift in Sources */,
 				E39EA6291D013EAA00FA08ED /* GameViewController.swift in Sources */,
 				E39EA6231D013EAA00FA08ED /* AppDelegate.swift in Sources */,
+				E3472FDE1D19927300717E8B /* Meteors.swift in Sources */,
 				E3C95BFF1D132ABA0088B118 /* SpaceRunnerSprites.swift in Sources */,
+				E36093F41D1B9B2D0051B296 /* AboutScene.swift in Sources */,
 				E3472FDC1D17AB7F00717E8B /* EnemyShips.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,7 +2,7 @@
 //  EnemyShips.swift
 //  Space_Runner
 //
-//  Created by Deon Cole on 6/20/16.
+//  Created by Deon Cole on 6/19/16.
 //  Copyright © 2016 Deon Cole. All rights reserved.
 //
 
@@ -137,6 +137,29 @@ extension GameScene {
         
         //add the enemy ship to the scene
         allObjects.addChild(enemyShip3)
+    }
+    
+    
+    //Method to create and return the node for the enemy lasers. This can be used to add to the ememy ships.
+    func shootEnemyLaser() -> SKSpriteNode {
+        
+        //Create a texture for the sprite and set it to the sprite node
+        enemyLaser = SKSpriteNode(texture: spriteSheet.laserBlue())
+        
+        //Set the z position so that the sprite is behind the enemy ship
+        enemyLaser.zPosition = -0.5
+        
+        //Create the physics body for the enemy ship's laser
+        enemyLaser.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.laserBlue().size())
+        enemyLaser.physicsBody?.dynamic = true
+        
+        //Set the mask to detect the types of collisions for the player ship's laser
+        enemyLaser.physicsBody?.categoryBitMask = CollisionType.EnemyLaser.rawValue
+        enemyLaser.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
+        enemyLaser.physicsBody?.collisionBitMask = 0
+        
+        return enemyLaser
+        
     }
     
     
