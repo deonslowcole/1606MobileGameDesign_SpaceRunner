@@ -12,7 +12,7 @@ extension GameScene {
     
     //MARK: Meteors
     
-    func createMetor1 () {
+    func createMeteor1 () {
         
         meteor1 = SKSpriteNode(texture: spriteSheet.meteor1())
         meteor1.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
@@ -35,7 +35,7 @@ extension GameScene {
     }
     
     
-    func createMetor2 () {
+    func createMeteor2 () {
         
         meteor2 = SKSpriteNode(texture: spriteSheet.meteor2())
         meteor2.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
@@ -57,7 +57,7 @@ extension GameScene {
         
     }
     
-    func createMetor3 () {
+    func createMeteor3 () {
         
         meteor3 = SKSpriteNode(texture: spriteSheet.meteor3())
         meteor3.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
@@ -79,7 +79,7 @@ extension GameScene {
         
     }
     
-    func createMetor4 () {
+    func createMeteor4 () {
         
         meteor4 = SKSpriteNode(texture: spriteSheet.meteor4())
         meteor4.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
@@ -102,7 +102,7 @@ extension GameScene {
     }
     
     
-    func createMetor5 () {
+    func createMeteor5 () {
         
         meteor5 = SKSpriteNode(texture: spriteSheet.meteor5())
         meteor5.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
@@ -124,6 +124,69 @@ extension GameScene {
         
     }
     
+    
+    func createMeteor6 () {
+        
+        meteor6 = SKSpriteNode(texture: spriteSheet.meteor6())
+        meteor6.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
+        meteor6.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor6().size())
+        meteor6.name = "Meteor"
+        meteor6.physicsBody?.dynamic = false
+        meteor6.physicsBody?.allowsRotation = true
+        
+        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
+        let removeMeteor = SKAction.removeFromParent()
+        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
+        
+        meteor6.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
+        meteor6.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
+        meteor6.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
+        
+        meteor6.runAction(showAndRemoveMeteor)
+        allObjects.addChild(meteor6)
+    }
+    
+    func createMeteor7 () {
+        
+        meteor7 = SKSpriteNode(texture: spriteSheet.meteor7())
+        meteor7.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
+        meteor7.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor7().size())
+        meteor7.name = "Meteor"
+        meteor7.physicsBody?.dynamic = false
+        meteor7.physicsBody?.allowsRotation = true
+        
+        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
+        let removeMeteor = SKAction.removeFromParent()
+        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
+        
+        meteor7.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
+        meteor7.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
+        meteor7.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
+        
+        meteor7.runAction(showAndRemoveMeteor)
+        allObjects.addChild(meteor7)
+    }
+    
+    func createMeteor8 () {
+        
+        meteor8 = SKSpriteNode(texture: spriteSheet.meteor8())
+        meteor8.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
+        meteor8.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.meteor8().size())
+        meteor8.name = "Meteor"
+        meteor8.physicsBody?.dynamic = false
+        meteor8.physicsBody?.allowsRotation = true
+        
+        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
+        let removeMeteor = SKAction.removeFromParent()
+        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
+        
+        meteor8.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
+        meteor8.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
+        meteor8.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
+        
+        meteor8.runAction(showAndRemoveMeteor)
+        allObjects.addChild(meteor8)
+    }
     
 }
 

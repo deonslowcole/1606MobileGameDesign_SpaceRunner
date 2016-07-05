@@ -4,7 +4,7 @@
 Deonslow Cole
 https://github.com/deonslowcole/1606MobileGameDesign_SpaceRunner.git
 
-Game for iPhone Only
+Game for iPhone Only iOS9 or higher
 
 Sprites & Sound Effects can be found the the Assests folder.
 The input control is the fire button at the bottom right of the scene.
@@ -19,3 +19,5 @@ Added meteors to avoid
 Added a HUD for player to see score and pause game
 Some animation when player and enemey ships are destroyed
 Alert when the game is over
+
+Add menu, tutorial & credit scenes
