@@ -32,7 +32,7 @@ extension GameScene {
         enemyBlack1.physicsBody?.allowsRotation = false
         enemyBlack1.runAction(showAndRemoveEnemy)
         
-        //Set the mask to detect the types of collisions for the enemy ship 1
+        //Set the mask to detect the types of collisions for the enemy ship
         enemyBlack1.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         enemyBlack1.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
         enemyBlack1.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
@@ -76,7 +76,7 @@ extension GameScene {
         enemyBlack2.physicsBody?.allowsRotation = false
         enemyBlack2.runAction(showAndRemoveEnemy)
         
-        //Set the mask to detect the types of collisions for the enemy ship 1
+        //Set the mask to detect the types of collisions for the enemy ship
         enemyBlack2.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         enemyBlack2.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
         enemyBlack2.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
@@ -118,7 +118,7 @@ extension GameScene {
         enemyBlack3.physicsBody?.allowsRotation = false
         enemyBlack3.runAction(showAndRemoveEnemy)
         
-        //Set the mask to detect the types of collisions for the enemy ship 1
+        //Set the mask to detect the types of collisions for the enemy ship
         enemyBlack3.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         enemyBlack3.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
         enemyBlack3.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
@@ -159,7 +159,7 @@ extension GameScene {
         enemyBlack4.physicsBody?.allowsRotation = false
         enemyBlack4.runAction(showAndRemoveEnemy)
         
-        //Set the mask to detect the types of collisions for the enemy ship 1
+        //Set the mask to detect the types of collisions for the enemy ship
         enemyBlack4.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         enemyBlack4.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
         enemyBlack4.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
@@ -200,7 +200,7 @@ extension GameScene {
         enemyBlack5.physicsBody?.allowsRotation = false
         enemyBlack5.runAction(showAndRemoveEnemy)
         
-        //Set the mask to detect the types of collisions for the enemy ship 1
+        //Set the mask to detect the types of collisions for the enemy ship
         enemyBlack5.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         enemyBlack5.physicsBody?.contactTestBitMask = CollisionType.Laser.rawValue
         enemyBlack5.physicsBody?.collisionBitMask = CollisionType.Object.rawValue

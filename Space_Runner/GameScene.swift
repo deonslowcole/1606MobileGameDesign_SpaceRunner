@@ -40,11 +40,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var enemyShipBlack3Timer = NSTimer()
     var enemyShipBlack4Timer = NSTimer()
     var enemyShipBlack5Timer = NSTimer()
-    var enemyExplode1 = SKSpriteNode()
-    var enemyExplode2 = SKSpriteNode()
-    var enemyExplode3 = SKSpriteNode()
     
-    //Create nodes for meteor
+    //Create nodes for meteors
     var meteor1 = SKSpriteNode()
     var meteor2 = SKSpriteNode()
     var meteor3 = SKSpriteNode()
@@ -126,6 +123,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Declare a variable to hold the x-axis position when the accelerometer is active
     var playerShipDestX: CGFloat = 0.0
     
+    //Declare a variable for experience points
+    var exPoints = 0
+    var collectedPoints = 0
+    
+    //Declare a variable to hold the timer for the experience points
+    var exPtsTimer = NSTimer()
+    
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -184,10 +188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 } else if name == "PauseButton" {
                     pauseAlert()
                 } else if name == "Play" {
-                    gameTitle.hidden = true
-                    playButton1.hidden = true
-                    tutorialButton.hidden = true
-                    aboutButton.hidden = true
+                    menuContainer.removeFromParent()
                     runAction(go)
                     loadGame()
                 } else if name == "Tutorial" {
@@ -232,6 +233,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyBlack1.runAction(toPlayer)
         enemyBlack2.runAction(toPlayer)
         enemyBlack3.runAction(toPlayer)
+        enemyBlack4.runAction(toPlayer)
+        enemyBlack5.runAction(toPlayer)
         
         //Declare a action to move the player's ship by the playerShipDestX variable and run the action in the player's ship
         let playerShipMove = SKAction.moveToX(playerShipDestX, duration: 0.05)
@@ -318,24 +321,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Call the method to create the player's ship
         createPlayerShip()
         
+        //Call the method to create the fire button
+        createFireButton()
+        
         //Call the method to add the enemy ships
         runEnemyShipTimer()
         
         //Call the method to add the enemy ships
         runMeteorTimer()
         
+        //Call the method to run the timer for creating experience points
+        runExPointsTimer()
+        
         //Set textures for the player ship damage
         shipDamage1 = SKSpriteNode(texture: spriteSheet.playerShipDamage1())
         shipDamage2 = SKSpriteNode(texture: spriteSheet.playerShipDamage2())
         shipDamage3 = SKSpriteNode(texture: spriteSheet.playerShipDamage3())
-        
-        
-        fireButton = SKSpriteNode(texture: spriteSheet.FireButtonLight())
-        fireButton.name = "fireButton"
-        fireButton.position = CGPointMake(self.size.width / 2, 120.0)
-        fireButton.zPosition = 2
-        fireButton.size = CGSize(width: 160.0, height: 160.0)
-        self.addChild(fireButton)
         
         
         //Use a conditional to check if the accelerometer is available
@@ -393,36 +394,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func runEnemyShipTimer (){
         
         //Set the timer for displaying the enemy ships
-        enemyShipBlack1Timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(GameScene.showEnemyShipBlack1), userInfo: nil, repeats: true)
+        enemyShipBlack1Timer = NSTimer.scheduledTimerWithTimeInterval(6, target: self, selector: #selector(GameScene.showEnemyShipBlack1), userInfo: nil, repeats: true)
         
-        enemyShipBlack2Timer = NSTimer.scheduledTimerWithTimeInterval(14, target: self, selector: #selector(GameScene.showEnemyShipBlack2), userInfo: nil, repeats: true)
+        enemyShipBlack2Timer = NSTimer.scheduledTimerWithTimeInterval(11, target: self, selector: #selector(GameScene.showEnemyShipBlack2), userInfo: nil, repeats: true)
         
-        enemyShipBlack3Timer = NSTimer.scheduledTimerWithTimeInterval(17, target: self, selector: #selector(GameScene.showEnemyShipBlack3), userInfo: nil, repeats: true)
+        enemyShipBlack3Timer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: #selector(GameScene.showEnemyShipBlack3), userInfo: nil, repeats: true)
         
-        enemyShipBlack4Timer = NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(GameScene.showEnemyShipBlack4), userInfo: nil, repeats: true)
+        enemyShipBlack4Timer = NSTimer.scheduledTimerWithTimeInterval(19, target: self, selector: #selector(GameScene.showEnemyShipBlack4), userInfo: nil, repeats: true)
         
-        enemyShipBlack4Timer = NSTimer.scheduledTimerWithTimeInterval(23, target: self, selector: #selector(GameScene.showEnemyShipBlack4), userInfo: nil, repeats: true)
+        enemyShipBlack5Timer = NSTimer.scheduledTimerWithTimeInterval(24, target: self, selector: #selector(GameScene.showEnemyShipBlack5), userInfo: nil, repeats: true)
         
     }
     
     //Method that calls all of the timers to run in order to show the meteors in the scene
     func runMeteorTimer () {
         
-        meteor1Timer = NSTimer.scheduledTimerWithTimeInterval(23, target: self, selector: #selector(GameScene.createMeteor1), userInfo: nil, repeats: true)
+        meteor1Timer = NSTimer.scheduledTimerWithTimeInterval(26, target: self, selector: #selector(GameScene.createMeteor1), userInfo: nil, repeats: true)
         
-        meteor2Timer = NSTimer.scheduledTimerWithTimeInterval(21, target: self, selector: #selector(GameScene.createMeteor2), userInfo: nil, repeats: true)
+        meteor2Timer = NSTimer.scheduledTimerWithTimeInterval(23, target: self, selector: #selector(GameScene.createMeteor2), userInfo: nil, repeats: true)
         
-        meteor3Timer = NSTimer.scheduledTimerWithTimeInterval(19, target: self, selector: #selector(GameScene.createMeteor3), userInfo: nil, repeats: true)
+        meteor3Timer = NSTimer.scheduledTimerWithTimeInterval(20, target: self, selector: #selector(GameScene.createMeteor3), userInfo: nil, repeats: true)
         
         meteor4Timer = NSTimer.scheduledTimerWithTimeInterval(17, target: self, selector: #selector(GameScene.createMeteor4), userInfo: nil, repeats: true)
         
-        meteor5Timer = NSTimer.scheduledTimerWithTimeInterval(14, target: self, selector: #selector(GameScene.createMeteor5), userInfo: nil, repeats: true)
+        meteor5Timer = NSTimer.scheduledTimerWithTimeInterval(11, target: self, selector: #selector(GameScene.createMeteor5), userInfo: nil, repeats: true)
         
-        meteor6Timer = NSTimer.scheduledTimerWithTimeInterval(11, target: self, selector: #selector(GameScene.createMeteor6), userInfo: nil, repeats: true)
+        meteor6Timer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(GameScene.createMeteor6), userInfo: nil, repeats: true)
         
-        meteor7Timer = NSTimer.scheduledTimerWithTimeInterval(8, target: self, selector: #selector(GameScene.createMeteor7), userInfo: nil, repeats: true)
+        meteor7Timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.createMeteor7), userInfo: nil, repeats: true)
         
-        meteor8Timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.createMeteor8), userInfo: nil, repeats: true)
+        meteor8Timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(GameScene.createMeteor8), userInfo: nil, repeats: true)
+    }
+    
+    
+    func runExPointsTimer (){
+        
+        //Run timer to create experience points
+        exPtsTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.createExPoints), userInfo: nil, repeats: true)
+        
     }
     
     //Method that call the timer for the player health power up
@@ -464,12 +473,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //Method that runs the timer for the player's experience points
+    func createExPoints() {
+        
+        exPoints = exPoints + 10
+        
+        print(exPoints)
+        
+    }
+    
     
     
     //MARK: Create Player Ship
     func createPlayerShip(){
         
         playerShip = SKSpriteNode(texture: spriteSheet.playerShipRed())
+        playerShip.name = "Player Ship"
         playerShip.position = CGPointMake(self.size.width/2, self.size.height/5)
         
         playerShip.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.playerShipRed().size())
@@ -483,10 +502,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Create Emitter node for flames to add to player's ship
         let fire = SKEmitterNode(fileNamed: "Fire.sks")
+        fire?.name = "Fire"
         fire?.position
         playerShip.addChild(fire!)
         
         allObjects.addChild(playerShip)
+        
+    }
+    
+    func createFireButton() {
+        
+        fireButton = SKSpriteNode(texture: spriteSheet.FireButtonLight())
+        fireButton.name = "fireButton"
+        fireButton.position = CGPointMake(self.size.width / 2, 120.0)
+        fireButton.zPosition = 2
+        fireButton.size = CGSize(width: 160.0, height: 160.0)
+        self.addChild(fireButton)
         
     }
     
@@ -521,10 +552,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Create the container that will hold the info for the player. Create it as a sprite node, anchor it in the center of the scene, set the zPosition so that all the other sprites will appear behind it and set the position to the left of the scene and to the top by subtracting the height of the hub from the height of the scene. Add it to the scene.
         let hudContainer = SKSpriteNode(color: UIColor.whiteColor(), size: CGSizeMake(self.frame.width, self.frame.height * 0.05))
+        hudContainer.name = "HUD"
         hudContainer.anchorPoint = CGPointMake(0, 0)
         hudContainer.zPosition = 2.0
         hudContainer.position = CGPointMake(0, self.size.height - hudContainer.size.height)
-        self.addChild(hudContainer)
+        allObjects.addChild(hudContainer)
+
         
         
         //Create a texture and set it equal to the node. Create the size and set the it to the center of the HUD. Give it a name to identifiy when it has been touched and add it to the scene.
@@ -558,6 +591,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         meteor3Timer.invalidate()
         meteor4Timer.invalidate()
         meteor5Timer.invalidate()
+        meteor6Timer.invalidate()
+        meteor7Timer.invalidate()
+        meteor8Timer.invalidate()
+        exPtsTimer.invalidate()
         fireButton.userInteractionEnabled = false
         
         let alert = UIAlertController(title: "Space Runner", message: "Game Paused", preferredStyle: UIAlertControllerStyle.Alert)
@@ -566,6 +603,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.view?.paused = false
             self.runEnemyShipTimer()
             self.runMeteorTimer()
+            self.createExPoints()
             self.fireButton.userInteractionEnabled = true
             })
         
@@ -580,17 +618,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let alert = UIAlertController(title: "Space Runner", message: "Game Over", preferredStyle: UIAlertControllerStyle.Alert)
         
         alert.addAction(UIAlertAction(title: "Play Again", style: UIAlertActionStyle.Default) { _ in
+            self.collectedPoints = self.collectedPoints + self.exPoints
+            print(self.collectedPoints)
             self.allObjects.removeAllChildren()
             self.playerScore = 0
             self.hitCount = 0
+            self.exPoints = 0
             self.fireButton.userInteractionEnabled = false
             self.pauseButton.userInteractionEnabled = false
             self.rain?.paused = false
             self.createPlayerShip()
             self.runMeteorTimer()
             self.runEnemyShipTimer()
+            self.runExPointsTimer()
             self.speed = 1
             })
+        
+        alert.addAction(UIAlertAction(title: "Menu", style: UIAlertActionStyle.Default) { _ in
+            self.collectedPoints = self.collectedPoints + self.exPoints
+            print(self.collectedPoints)
+            self.allObjects.removeFromParent()
+            self.allObjects.removeAllChildren()
+            self.playerShip.removeAllChildren()
+            self.playerScore = 0
+            self.hitCount = 0
+            self.exPoints = 0
+            self.fireButton.removeFromParent()
+            self.rain?.paused = false
+            NSUserDefaults.standardUserDefaults().setObject(self.collectedPoints, forKey: "experiencePoints")
+            self.showMenu()
+        })
         
         self.view?.window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
         
@@ -617,6 +674,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if hitCount == 1 {
                 createPowerUpHealth()
             }
+            
+            if playerScore <= 0 {
+                
+                playerScore = 0
+                
+            }
+            
         }
         
         
@@ -629,16 +693,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             playerShipHit()
             
-            if firstBody.node!.name == "enemyShip1" || secondBody.node!.name == "enemyShip1" {
+            
+            if firstBody.node!.name == "enemyShipBlack1" || secondBody.node!.name == "enemyShipBlack1" {
                 enemyBlack1.runAction(enemyExplodeAndFade)
                 playerScore = playerScore - 10
-            } else if firstBody.node!.name == "enemyShip2" || secondBody.node!.name == "enemyShip2" {
+            } else if firstBody.node!.name == "enemyShipBlack2" || secondBody.node!.name == "enemyShipBlack2" {
                 enemyBlack2.runAction(enemyExplodeAndFade)
                 playerScore = playerScore - 10
-            } else if firstBody.node!.name == "enemyShip3" || secondBody.node!.name == "enemyShip3" {
+            } else if firstBody.node!.name == "enemyShipBlack3" || secondBody.node!.name == "enemyShipBlack3" {
                 enemyBlack3.runAction(enemyExplodeAndFade)
                 playerScore = playerScore - 10
+            } else if firstBody.node!.name == "enemyShipBlack4" || secondBody.node!.name == "enemyShipBlack4" {
+                enemyBlack4.runAction(enemyExplodeAndFade)
+                playerScore = playerScore - 10
+            } else if firstBody.node!.name == "enemyShipBlack5" || secondBody.node!.name == "enemyShipBlack5" {
+                enemyBlack5.runAction(enemyExplodeAndFade)
+                playerScore = playerScore - 10
+            } else if firstBody.node!.name == "Meteor" || secondBody.node!.name == "Meteor" {
+                playerScore = playerScore - 10
             }
+            
             
             switch hitCount {
             case 1 :
@@ -665,7 +739,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 meteor3Timer.invalidate()
                 meteor4Timer.invalidate()
                 meteor5Timer.invalidate()
+                meteor6Timer.invalidate()
+                meteor7Timer.invalidate()
+                meteor8Timer.invalidate()
                 powerUpHealthTimer.invalidate()
+                exPtsTimer.invalidate()
                 fireButton.userInteractionEnabled = true
                 pauseButton.userInteractionEnabled = true
                 rain?.paused = true
@@ -679,22 +757,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == CollisionType.Object.rawValue && secondBody.categoryBitMask == CollisionType.Laser.rawValue || firstBody.categoryBitMask == CollisionType.Laser.rawValue && secondBody.categoryBitMask == CollisionType.Object.rawValue {
             
             
-            if firstBody.node!.name == "enemyShip1" || secondBody.node!.name == "enemyShip1" {
+            if firstBody.node!.name == "enemyShipBlack1" || secondBody.node!.name == "enemyShipBlack1" {
                 enemyBlack1.runAction(enemyExplodeAndFade)
-                playerScore = playerScore + 20
+                playerScore = playerScore + 5
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
-            } else if firstBody.node!.name == "enemyShip2" || secondBody.node!.name == "enemyShip2" {
+            } else if firstBody.node!.name == "enemyShipBlack2" || secondBody.node!.name == "enemyShipBlack2" {
                 enemyBlack2.runAction(enemyExplodeAndFade)
-                playerScore = playerScore + 20
+                playerScore = playerScore + 10
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
-            } else if firstBody.node!.name == "enemyShip3" || secondBody.node!.name == "enemyShip3" {
+            } else if firstBody.node!.name == "enemyShipBlack3" || secondBody.node!.name == "enemyShipBlack3" {
                 enemyBlack3.runAction(enemyExplodeAndFade)
+                playerScore = playerScore + 15
+                runAction(enemyBlownUp)
+                playerLaser.removeFromParent()
+            } else if firstBody.node!.name == "enemyShipBlack4" || secondBody.node!.name == "enemyShipBlack4"{
+                enemyBlack4.runAction(enemyExplodeAndFade)
                 playerScore = playerScore + 20
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
-            } else if firstBody.node!.name == "Meteor" || secondBody.node!.name == "Meteor" {
+            }else if firstBody.node!.name == "enemyShipBlack5" || secondBody.node!.name == "enemyShipBlack5"{
+                enemyBlack5.runAction(enemyExplodeAndFade)
+                playerScore = playerScore + 20
+                runAction(enemyBlownUp)
+                playerLaser.removeFromParent()
+            }else if firstBody.node!.name == "Meteor" || secondBody.node!.name == "Meteor" {
                 playerLaser.removeFromParent()
             }
             
@@ -713,19 +801,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 runAction(playerHealthAudio)
                 powerUpHealthTimer.invalidate()
                 hitCount = hitCount - 1
-                playerScore = playerScore + 30
+                playerScore = playerScore + 10
             case 2:
                 shipDamage2.removeFromParent()
                 powerUpHealth.removeFromParent()
                 runAction(playerHealthAudio)
                 hitCount = hitCount - 1
-                playerScore = playerScore + 40
+                playerScore = playerScore + 25
             case 3:
                 shipDamage3.removeFromParent()
                 powerUpHealth.removeFromParent()
                 runAction(playerHealthAudio)
                 hitCount = hitCount - 1
-                playerScore = playerScore + 50
+                playerScore = playerScore + 40
             default:
                 print("No More Health")
             }
@@ -761,11 +849,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemyShipBlack3Timer.invalidate()
                 enemyShipBlack4Timer.invalidate()
                 enemyShipBlack5Timer.invalidate()
+                exPtsTimer.invalidate()
                 meteor1Timer.invalidate()
                 meteor2Timer.invalidate()
                 meteor3Timer.invalidate()
                 meteor4Timer.invalidate()
                 meteor5Timer.invalidate()
+                meteor6Timer.invalidate()
+                meteor7Timer.invalidate()
+                meteor8Timer.invalidate()
                 powerUpHealthTimer.invalidate()
                 fireButton.userInteractionEnabled = false
                 pauseButton.userInteractionEnabled = false
