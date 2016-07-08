@@ -32,8 +32,9 @@
 		E39EA62E1D013EAA00FA08ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62D1D013EAA00FA08ED /* Assets.xcassets */; };
 		E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E39EA62F1D013EAA00FA08ED /* LaunchScreen.storyboard */; };
 		E39FC8CE1D0A73C100CB83A3 /* EnemyBlowUp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */; };
-		E3AA37271D2C9371009955A6 /* SpaceRunnerSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA37251D2C9371009955A6 /* SpaceRunnerSprites.swift */; };
-		E3AA37291D2E0545009955A6 /* SpaceRunnerSprites.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = E3AA37281D2E0545009955A6 /* SpaceRunnerSprites.atlasc */; };
+		E3AA372C1D2EF2F3009955A6 /* SpaceRunnerSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA372A1D2EF2F3009955A6 /* SpaceRunnerSprites.swift */; };
+		E3AA372D1D2EF2F3009955A6 /* SpaceRunnerSprites.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = E3AA372B1D2EF2F3009955A6 /* SpaceRunnerSprites.atlasc */; };
+		E3AA37311D302294009955A6 /* MissonControlScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA37301D302294009955A6 /* MissonControlScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,8 +65,9 @@
 		E39EA6301D013EAA00FA08ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E39EA6321D013EAA00FA08ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E39FC8CD1D0A73C100CB83A3 /* EnemyBlowUp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyBlowUp.mp3; sourceTree = "<group>"; };
-		E3AA37251D2C9371009955A6 /* SpaceRunnerSprites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceRunnerSprites.swift; sourceTree = "<group>"; };
-		E3AA37281D2E0545009955A6 /* SpaceRunnerSprites.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpaceRunnerSprites.atlasc; sourceTree = "<group>"; };
+		E3AA372A1D2EF2F3009955A6 /* SpaceRunnerSprites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceRunnerSprites.swift; sourceTree = "<group>"; };
+		E3AA372B1D2EF2F3009955A6 /* SpaceRunnerSprites.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpaceRunnerSprites.atlasc; sourceTree = "<group>"; };
+		E3AA37301D302294009955A6 /* MissonControlScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissonControlScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +127,8 @@
 		E39EA6211D013EAA00FA08ED /* Space_Runner */ = {
 			isa = PBXGroup;
 			children = (
-				E3AA37281D2E0545009955A6 /* SpaceRunnerSprites.atlasc */,
-				E3AA37251D2C9371009955A6 /* SpaceRunnerSprites.swift */,
+				E3AA372A1D2EF2F3009955A6 /* SpaceRunnerSprites.swift */,
+				E3AA372B1D2EF2F3009955A6 /* SpaceRunnerSprites.atlasc */,
 				E39EA6221D013EAA00FA08ED /* AppDelegate.swift */,
 				E39EA6241D013EAA00FA08ED /* GameScene.sks */,
 				E39EA6261D013EAA00FA08ED /* GameScene.swift */,
@@ -142,6 +144,7 @@
 				E3472FDD1D19927300717E8B /* Meteors.swift */,
 				E36093F31D1B9B2D0051B296 /* AboutScene.swift */,
 				E36094051D1C71180051B296 /* TutorialScene.swift */,
+				E3AA37301D302294009955A6 /* MissonControlScene.swift */,
 			);
 			path = Space_Runner;
 			sourceTree = "<group>";
@@ -212,7 +215,7 @@
 				E39EA6311D013EAA00FA08ED /* LaunchScreen.storyboard in Resources */,
 				E36094001D1C4FB00051B296 /* Dont-Hold-Back.mp3 in Resources */,
 				E36DC2E01D109F2E00F1694F /* MissionFailed.mp3 in Resources */,
-				E3AA37291D2E0545009955A6 /* SpaceRunnerSprites.atlasc in Resources */,
+				E3AA372D1D2EF2F3009955A6 /* SpaceRunnerSprites.atlasc in Resources */,
 				E36093FA1D1C413A0051B296 /* Foundations.mp3 in Resources */,
 				E36093F81D1C40570051B296 /* SpaceDoorClose.mp3 in Resources */,
 				E36093FC1D1C4F860051B296 /* TwoTone.mp3 in Resources */,
@@ -236,8 +239,9 @@
 			files = (
 				E36094061D1C71180051B296 /* TutorialScene.swift in Sources */,
 				E39EA6271D013EAA00FA08ED /* GameScene.swift in Sources */,
+				E3AA37311D302294009955A6 /* MissonControlScene.swift in Sources */,
 				E39EA6291D013EAA00FA08ED /* GameViewController.swift in Sources */,
-				E3AA37271D2C9371009955A6 /* SpaceRunnerSprites.swift in Sources */,
+				E3AA372C1D2EF2F3009955A6 /* SpaceRunnerSprites.swift in Sources */,
 				E39EA6231D013EAA00FA08ED /* AppDelegate.swift in Sources */,
 				E3472FDE1D19927300717E8B /* Meteors.swift in Sources */,
 				E36093F41D1B9B2D0051B296 /* AboutScene.swift in Sources */,

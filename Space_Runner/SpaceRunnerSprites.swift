@@ -14,6 +14,7 @@ class SpaceRunnerSprites {
     let FIREBUTTONLIGHT   = "FireButtonLight"
     let POWERUPHEALTH     = "PowerUpHealth"
     let SETTINGS          = "Settings"
+    let TROPHY            = "Trophy"
     let ENEMYBLACK1       = "enemyBlack1"
     let ENEMYBLACK2       = "enemyBlack2"
     let ENEMYBLACK3       = "enemyBlack3"
@@ -60,6 +61,7 @@ class SpaceRunnerSprites {
     func FireButtonLight() -> SKTexture   { return textureAtlas.textureNamed(FIREBUTTONLIGHT) }
     func PowerUpHealth() -> SKTexture     { return textureAtlas.textureNamed(POWERUPHEALTH) }
     func Settings() -> SKTexture          { return textureAtlas.textureNamed(SETTINGS) }
+    func Trophy() -> SKTexture            { return textureAtlas.textureNamed(TROPHY) }
     func enemyBlack1() -> SKTexture       { return textureAtlas.textureNamed(ENEMYBLACK1) }
     func enemyBlack2() -> SKTexture       { return textureAtlas.textureNamed(ENEMYBLACK2) }
     func enemyBlack3() -> SKTexture       { return textureAtlas.textureNamed(ENEMYBLACK3) }
