@@ -25,22 +25,29 @@ class MissonControlScene: SKScene {
     var xp2Label = SKLabelNode()
     var xp3Label = SKLabelNode()
     var xp4Label = SKLabelNode()
+    
+    //Create bools for if the player owns a particulair ship
     var xp1IsOwned = true
     var xp2IsOwned = false
     var xp3IsOwned = false
     var xp4IsOwned = false
+    
+    //Declare variables to hold if the player ship is owned or equipped.
     var xp1String = String()
     var xp2String = String()
     var xp3String = String()
     var xp4String = String()
     
     
-    
+    //Create a HUD node to display the amount of XP available
     var hudContainer = SKSpriteNode()
     
     
     //Create node for Audio
     let close = SKAction.playSoundFileNamed("SpaceDoorClose.mp3", waitForCompletion: true)
+    
+    //Declare a variable to hold the name of the ship that the player chooses.
+    var chosenShip = String()
     
     
     
@@ -140,6 +147,7 @@ class MissonControlScene: SKScene {
                     let transition = SKTransition.doorsCloseHorizontalWithDuration(0.8)
                     gameScene.scaleMode = SKSceneScaleMode.AspectFill
                     runAction(close)
+                    //Save the information so that when the player returns it will remain the same.
                     NSUserDefaults.standardUserDefaults().setObject(xp1IsOwned, forKey: "redShipOwned")
                     NSUserDefaults.standardUserDefaults().setObject(xp2IsOwned, forKey: "blueShipOwned")
                     NSUserDefaults.standardUserDefaults().setObject(xp3IsOwned, forKey: "greenShipOwned")
@@ -148,6 +156,7 @@ class MissonControlScene: SKScene {
                     NSUserDefaults.standardUserDefaults().setObject(xp2Label.text, forKey: "blueString")
                     NSUserDefaults.standardUserDefaults().setObject(xp3Label.text, forKey: "greenString")
                     NSUserDefaults.standardUserDefaults().setObject(xp4Label.text, forKey: "orangeString")
+                    NSUserDefaults.standardUserDefaults().setObject(chosenShip, forKey: "theShip")
                     self.scene?.view?.presentScene(gameScene, transition: transition)
                 }
             }
@@ -197,7 +206,7 @@ class MissonControlScene: SKScene {
         xp2.addChild(xpCover1)
         self.addChild(xp2)
         
-        //Set the position of the labels to display how much each item cost. If it is already owned show the status either owned or equipped. I fnot owned show the xp cost
+        //Set the position of the labels to display how much each item cost. If it is already owned show the status either owned or equipped. If not owned show the xp cost. If owned show the if it is equipped or not and remove the children so that the player can interact with it.
         xp2Label.position = CGPointMake(self.frame.width / 2, xp2.position.y - 120)
         if let ownBlue = NSUserDefaults.standardUserDefaults().objectForKey("blueShipOwned") {
             xp2IsOwned = ownBlue as! Bool
@@ -329,7 +338,7 @@ class MissonControlScene: SKScene {
                     self.xp4Label.text = "Owned"
                     self.xp4String = "Owned"
                 }
-                chosenShip = SKTexture(imageNamed: "playerShipBlue")
+                self.chosenShip = "playerShipBlue"
             } else if name == "XP3" {
                 self.xp3IsOwned = true
                 collectedPoints = collectedPoints - 1000
@@ -346,7 +355,7 @@ class MissonControlScene: SKScene {
                     self.xp4Label.text = "Owned"
                     self.xp4String = "Owned"
                 }
-                chosenShip = SKTexture(imageNamed: "playerShipGreen")
+                self.chosenShip = "playerShipGreen"
             } else if name == "XP4" {
                 self.xp4IsOwned = true
                 collectedPoints = collectedPoints - 1500
@@ -363,7 +372,7 @@ class MissonControlScene: SKScene {
                 }
                 self.xp4Label.text = "Equipped"
                 self.xp4String = "Equipped"
-                chosenShip = SKTexture(imageNamed: "playerShipOrange")
+                self.chosenShip = "playerShipOrange"
             }
             
             })
@@ -394,7 +403,7 @@ class MissonControlScene: SKScene {
                 xp4Label.text = "Owned"
             }
             
-            chosenShip = SKTexture(imageNamed: "playerShipRed")
+            chosenShip = "playerShipRed"
         }
         
         if name == "XP2" {
@@ -417,7 +426,7 @@ class MissonControlScene: SKScene {
                 xp4Label.text = "Owned"
             }
             
-            chosenShip = SKTexture(imageNamed: "playerShipBlue")
+            chosenShip = "playerShipBlue"
         }
         
         if name == "XP3" {
@@ -440,7 +449,7 @@ class MissonControlScene: SKScene {
                 xp4Label.text = "Owned"
             }
             
-            chosenShip = SKTexture(imageNamed: "playerShipGreen")
+            chosenShip = "playerShipGreen"
         }
         
         
@@ -464,7 +473,7 @@ class MissonControlScene: SKScene {
                 xp3Label.text = "Owned"
             }
             
-            chosenShip = SKTexture(imageNamed: "playerShipOrange")
+            chosenShip = "playerShipOrange"
         }
         
     }

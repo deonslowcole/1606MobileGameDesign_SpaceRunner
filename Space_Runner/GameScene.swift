@@ -14,10 +14,7 @@ import CoreMotion
 let spriteSheet = SpaceRunnerSprites()
 
 //Declare a variable for collected experience points
-var collectedPoints = 1000
-
-//Declare a global variable to hold the texture of the player's ship
-var chosenShip: SKTexture = SKTexture(imageNamed: "playerShipRed")
+var collectedPoints = 0
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -334,6 +331,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
         
+        //Use optional binding to check if there are any stored xp. If there are, start the game with what is there else the start with 0 xp.
+        if let xp = NSUserDefaults.standardUserDefaults().objectForKey("collectedPoints") {
+            
+            collectedPoints = Int(xp as! NSNumber)
+            
+        } else {
+            
+            collectedPoints = 0
+        }
+        
         //Call the function to make the game HUD
         showHUD()
         
@@ -508,7 +515,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Create Player Ship
     func createPlayerShip(){
         
-        playerShip = SKSpriteNode(texture: chosenShip)
+        if let ship = NSUserDefaults.standardUserDefaults().objectForKey("theShip") {
+            
+            let theShip = SKTexture(imageNamed: ship as! String)
+            playerShip = SKSpriteNode(texture: theShip)
+            
+        } else {
+            
+            playerShip = SKSpriteNode(texture: spriteSheet.playerShipRed())
+            
+        }
+    
         playerShip.name = "Player Ship"
         playerShip.position = CGPointMake(self.size.width/2, self.size.height/5)
         
