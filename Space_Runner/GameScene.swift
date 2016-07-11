@@ -9,6 +9,17 @@
 import SpriteKit
 import CoreMotion
 
+
+//Declare a constant for the sprite sheets to pull sprites from.
+let spriteSheet = SpaceRunnerSprites()
+
+//Declare a variable for collected experience points
+var collectedPoints = 1000
+
+//Declare a global variable to hold the texture of the player's ship
+var chosenShip: SKTexture = SKTexture(imageNamed: "playerShipRed")
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
@@ -113,10 +124,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let dissolve = SKAction.playSoundFileNamed("Dissolve.mp3", waitForCompletion: true)
     let twoTone = SKAction.playSoundFileNamed("TwoTone.mp3", waitForCompletion: true)
     let go = SKAction.playSoundFileNamed("Go", waitForCompletion: true)
-    
-    
-    //Declre a constant for the sprite sheets to pull sprites from.
-    let spriteSheet = SpaceRunnerSprites()
+
     
     //Declare a variable to be instantiated for core motion
     var coreMotion = CMMotionManager()
@@ -126,7 +134,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //Declare a variable for experience points
     var exPoints = 0
-    var collectedPoints = 0
     
     //Declare a variable to hold the timer for the experience points
     var exPtsTimer = NSTimer()
@@ -160,6 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Call the function to show the menu to the player
         showMenu()
+        
     }
     
     
@@ -206,8 +214,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.scene?.view?.presentScene(aboutScene, transition: transition)
                 } else if name == "Trophy" {
                     let mcScene = MissonControlScene(size: self.size)
-                    let transition = SKTransition.fadeWithDuration(1.0)
+                    let transition = SKTransition.fadeWithDuration(0.5)
                     mcScene.scaleMode = SKSceneScaleMode.AspectFill
+                    runAction(dissolve)
                     self.scene?.view?.presentScene(mcScene, transition: transition)
                 }
             }
@@ -259,7 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func showMenu() -> SKSpriteNode{
         
         //Create a container to hold the menu items when the game loads
-        menuContainer = SKSpriteNode(color: UIColor.lightGrayColor(), size: CGSizeMake(self.frame.width * 0.7, self.frame.height * 0.6))
+        menuContainer = SKSpriteNode(color: UIColor.clearColor(), size: CGSizeMake(self.frame.width * 0.7, self.frame.height * 0.6))
         menuContainer.anchorPoint = CGPointMake(0, 0)
         menuContainer.name = "Menu"
         menuContainer.zPosition = 1.0
@@ -499,7 +508,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Create Player Ship
     func createPlayerShip(){
         
-        playerShip = SKSpriteNode(texture: spriteSheet.playerShipRed())
+        playerShip = SKSpriteNode(texture: chosenShip)
         playerShip.name = "Player Ship"
         playerShip.position = CGPointMake(self.size.width/2, self.size.height/5)
         
@@ -655,7 +664,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.exPoints = 0
             self.fireButton.removeFromParent()
             self.rain?.paused = false
-            NSUserDefaults.standardUserDefaults().setObject(self.collectedPoints, forKey: "experiencePoints")
+            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
             self.showMenu()
         })
         

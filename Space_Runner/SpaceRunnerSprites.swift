@@ -12,9 +12,15 @@ class SpaceRunnerSprites {
 
     // sprite names
     let FIREBUTTONLIGHT   = "FireButtonLight"
+    let MEDAL             = "Medal"
     let POWERUPHEALTH     = "PowerUpHealth"
     let SETTINGS          = "Settings"
     let TROPHY            = "Trophy"
+    let CRUISERBLUE       = "cruiserBlue"
+    let CRUISERGREEN      = "cruiserGreen"
+    let CRUISERORANGE     = "cruiserOrange"
+    let CRUISERRED        = "cruiserRed"
+    let CRUISERUNCHECKED  = "cruiserUnchecked"
     let ENEMYBLACK1       = "enemyBlack1"
     let ENEMYBLACK2       = "enemyBlack2"
     let ENEMYBLACK3       = "enemyBlack3"
@@ -59,9 +65,15 @@ class SpaceRunnerSprites {
 
     // individual texture objects
     func FireButtonLight() -> SKTexture   { return textureAtlas.textureNamed(FIREBUTTONLIGHT) }
+    func Medal() -> SKTexture             { return textureAtlas.textureNamed(MEDAL) }
     func PowerUpHealth() -> SKTexture     { return textureAtlas.textureNamed(POWERUPHEALTH) }
     func Settings() -> SKTexture          { return textureAtlas.textureNamed(SETTINGS) }
     func Trophy() -> SKTexture            { return textureAtlas.textureNamed(TROPHY) }
+    func cruiserBlue() -> SKTexture       { return textureAtlas.textureNamed(CRUISERBLUE) }
+    func cruiserGreen() -> SKTexture      { return textureAtlas.textureNamed(CRUISERGREEN) }
+    func cruiserOrange() -> SKTexture     { return textureAtlas.textureNamed(CRUISERORANGE) }
+    func cruiserRed() -> SKTexture        { return textureAtlas.textureNamed(CRUISERRED) }
+    func cruiserUnchecked() -> SKTexture  { return textureAtlas.textureNamed(CRUISERUNCHECKED) }
     func enemyBlack1() -> SKTexture       { return textureAtlas.textureNamed(ENEMYBLACK1) }
     func enemyBlack2() -> SKTexture       { return textureAtlas.textureNamed(ENEMYBLACK2) }
     func enemyBlack3() -> SKTexture       { return textureAtlas.textureNamed(ENEMYBLACK3) }
