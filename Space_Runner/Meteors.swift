@@ -10,6 +10,16 @@ import SpriteKit
 
 extension GameScene {
     
+    func moveMeteors() -> SKAction {
+        
+        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
+        let removeMeteor = SKAction.removeFromParent()
+        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
+        
+        return showAndRemoveMeteor
+        
+    }
+    
     //MARK: Meteors
     
     func createMeteor1 () {
@@ -21,15 +31,11 @@ extension GameScene {
         meteor1.physicsBody?.dynamic = false
         meteor1.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor1.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor1.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor1.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor1.runAction(showAndRemoveMeteor)
+        meteor1.runAction(moveMeteors())
         allObjects.addChild(meteor1)
         
     }
@@ -44,15 +50,11 @@ extension GameScene {
         meteor2.physicsBody?.dynamic = false
         meteor2.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor2.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor2.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor2.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor2.runAction(showAndRemoveMeteor)
+        meteor2.runAction(moveMeteors())
         allObjects.addChild(meteor2)
         
     }
@@ -66,15 +68,11 @@ extension GameScene {
         meteor3.physicsBody?.dynamic = false
         meteor3.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor3.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor3.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor3.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor3.runAction(showAndRemoveMeteor)
+        meteor3.runAction(moveMeteors())
         allObjects.addChild(meteor3)
         
     }
@@ -88,15 +86,11 @@ extension GameScene {
         meteor4.physicsBody?.dynamic = false
         meteor4.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor4.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor4.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor4.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor4.runAction(showAndRemoveMeteor)
+        meteor4.runAction(moveMeteors())
         self.addChild(meteor4)
         
     }
@@ -111,15 +105,11 @@ extension GameScene {
         meteor5.physicsBody?.dynamic = false
         meteor5.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor5.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor5.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor5.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor5.runAction(showAndRemoveMeteor)
+        meteor5.runAction(moveMeteors())
         allObjects.addChild(meteor5)
         
     }
@@ -134,15 +124,11 @@ extension GameScene {
         meteor6.physicsBody?.dynamic = false
         meteor6.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor6.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor6.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor6.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor6.runAction(showAndRemoveMeteor)
+        meteor6.runAction(moveMeteors())
         allObjects.addChild(meteor6)
     }
     
@@ -155,15 +141,11 @@ extension GameScene {
         meteor7.physicsBody?.dynamic = false
         meteor7.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor7.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor7.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor7.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor7.runAction(showAndRemoveMeteor)
+        meteor7.runAction(moveMeteors())
         allObjects.addChild(meteor7)
     }
     
@@ -176,15 +158,11 @@ extension GameScene {
         meteor8.physicsBody?.dynamic = false
         meteor8.physicsBody?.allowsRotation = true
         
-        let showMeteor = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 300))
-        let removeMeteor = SKAction.removeFromParent()
-        let showAndRemoveMeteor = SKAction.sequence([showMeteor, removeMeteor])
-        
         meteor8.physicsBody?.categoryBitMask = CollisionType.Object.rawValue
         meteor8.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         meteor8.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        meteor8.runAction(showAndRemoveMeteor)
+        meteor8.runAction(moveMeteors())
         allObjects.addChild(meteor8)
     }
     

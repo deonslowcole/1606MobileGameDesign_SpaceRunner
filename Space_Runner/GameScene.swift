@@ -20,10 +20,23 @@ var collectedPoints = 0
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
-    //Create nodes for the UI Controls
+    //Create nodes for the UI Control and a variable to hold the amount of times the player shoots
     var fireButton = SKSpriteNode()
-    var leftButton = SKSpriteNode()
-    var rightButton = SKSpriteNode()
+    var shotCount = 0
+    
+    //Create nodes for the focus button
+    var focusBkg = SKSpriteNode()
+    var focus1 = SKSpriteNode()
+    var focus2 = SKSpriteNode()
+    var focus3 = SKSpriteNode()
+    var focus4 = SKSpriteNode()
+    var focus5 = SKSpriteNode()
+    var focus6 = SKSpriteNode()
+    var focus7 = SKSpriteNode()
+    var focusCount = 0
+    
+    var powerUpFocus = SKSpriteNode()
+    var powerUpFocusTimer = NSTimer()
     
     //Create nodes for the player's ship
     var playerShip = SKSpriteNode()
@@ -48,6 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var enemyShipBlack3Timer = NSTimer()
     var enemyShipBlack4Timer = NSTimer()
     var enemyShipBlack5Timer = NSTimer()
+    var enemiesDestroyed = 0
     
     //Create nodes for meteors
     var meteor1 = SKSpriteNode()
@@ -67,14 +81,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var meteor7Timer = NSTimer()
     var meteor8Timer = NSTimer()
     
+    
+    
     //Create a label node to display the player's score
     var scoreLabel = SKLabelNode()
     
     //Declare a variable to hold the hit count of the player's ship damage
     var hitCount = 0
     
-    //Declare a variable to hold the players score
+    //Declare a variable to hold the player's score and the final score to be use for gaining extra xp
     var playerScore = 0
+    var finalScore = 0
+    
+    //Declare a variable for the game speed & timer
+    var gameSpeed: CGFloat = 1.0
+    var gameSpeedTimer = NSTimer()
+    var gameSpeedCount = 0
     
     //Create a node for the pause button.
     var pauseButton = SKSpriteNode()
@@ -92,6 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case HealthPowerUp = 16
         case PlayerShipShield = 32
         case enemyShip = 64
+        case FocusPowerUp = 128
     }
     
     
@@ -106,7 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var playButton2 = SKSpriteNode()
     var tutorialButton = SKSpriteNode()
     var aboutButton = SKSpriteNode()
-    var trophy = SKSpriteNode()
+    var rocket = SKSpriteNode()
     
     //Create emmiter nodes to add effect/animation to the scene.
     let rain = SKEmitterNode(fileNamed: "Rain.sks")
@@ -165,6 +188,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Call the function to show the menu to the player
         showMenu()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GameScene.scheduleNotification), name: "local-Notifications", object: nil)
+        
     }
     
     
@@ -187,6 +212,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if name == "fireButton" {
                     runAction(playerLaserAudio)
                     shootLaser()
+                    shotCount = shotCount + 1
+                    createPowerUpFocus()
+                    speedGameUp()
                 } else if name == "moveLeftButton" {
                     playerShip.physicsBody?.velocity = CGVectorMake(-800, 0)
                 } else if name == "moveRightButton" {
@@ -209,12 +237,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     aboutScene.scaleMode = SKSceneScaleMode.AspectFill
                     runAction(dissolve)
                     self.scene?.view?.presentScene(aboutScene, transition: transition)
-                } else if name == "Trophy" {
+                } else if name == "Rocket" {
                     let mcScene = MissonControlScene(size: self.size)
                     let transition = SKTransition.fadeWithDuration(0.5)
                     mcScene.scaleMode = SKSceneScaleMode.AspectFill
                     runAction(dissolve)
                     self.scene?.view?.presentScene(mcScene, transition: transition)
+                } else if name == "Focus" {
+                    if focusCount == 6 {
+                        focusCount = 0
+                        focusBkg.removeAllActions()
+                        self.speed = gameSpeed / 2
+                        runGameSpeedTimer()
+                    }
                 }
             }
             
@@ -259,6 +294,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
     }
+    
+    //MARK: Notification
+    //Method creates the local notification on teh device. Declare a variable to be th given xp points. use a switch statement to check the player's score and set the extra xp points. Add it to the value of the player's collected points. Initialize a variable to hold the local notification. Declare a variable to hold the start of the local notification. Declare a variable to hold the amount of time (in seconds)when the notification should happen. It is set to 4 hours. Set the fire date equal to the notification time. Set the message to the user along with the timezone, badge number and default sound. Scheduele the notification after setup.
+    func scheduleNotification() {
+        
+        var extraXP = 0
+        
+        switch finalScore {
+        case 0...50:
+            extraXP = 50
+            collectedPoints = collectedPoints + extraXP
+            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
+        case 51...150:
+            extraXP = 100
+            collectedPoints = collectedPoints + extraXP
+            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
+        case 151...400:
+            extraXP = 150
+            collectedPoints = collectedPoints + extraXP
+            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
+        case 401...800:
+            extraXP = 200
+            collectedPoints = collectedPoints + extraXP
+            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
+        default:
+            break
+       
+        }
+        
+        
+        let notification = UILocalNotification()
+        
+        let startDate = NSDate()
+        
+        let notificationTime = startDate.dateByAddingTimeInterval(5) //14400
+        
+        
+        notification.fireDate = notificationTime
+        notification.alertBody = "Time to fly, you've recieved a bonus \(extraXP)xp"
+        notification.timeZone = NSTimeZone.defaultTimeZone()
+        notification.applicationIconBadgeNumber = 1
+        notification.soundName = UILocalNotificationDefaultSoundName
+        
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        
+        
+    }
+    
     
     //MARK: Menu
     
@@ -312,11 +396,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         aboutButton.anchorPoint = CGPointMake(0, 0)
         menuContainer.addChild(aboutButton)
         
-        trophy = SKSpriteNode(texture: spriteSheet.Trophy())
-        trophy.name = "Trophy"
-        trophy.size = CGSizeMake(menuContainer.size.width / 4, menuContainer.size.height / 5)
-        trophy.position = CGPointMake(menuContainer.size.width - (menuContainer.size.width / 7), 100)
-        menuContainer.addChild(trophy)
+        rocket = SKSpriteNode(texture: spriteSheet.gameRocket())
+        rocket.name = "Rocket"
+        rocket.size = CGSizeMake(menuContainer.size.width / 6, menuContainer.size.height / 7)
+        rocket.position = CGPointMake(menuContainer.size.width - (menuContainer.size.width / 7), 100)
+        menuContainer.addChild(rocket)
         
         
         return menuContainer
@@ -324,12 +408,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    
     //MARK: Functions
     
     //Method loads the game
     func loadGame() {
         
-        //        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        
         
         //Use optional binding to check if there are any stored xp. If there are, start the game with what is there else the start with 0 xp.
         if let xp = NSUserDefaults.standardUserDefaults().objectForKey("collectedPoints") {
@@ -341,6 +426,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             collectedPoints = 0
         }
         
+        
         //Call the function to make the game HUD
         showHUD()
         
@@ -351,6 +437,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Call the method to create the fire button
         createFireButton()
+        
+        //Call the method to create the focus button
+        createFocusButton()
         
         //Call the method to add the enemy ships
         runEnemyShipTimer()
@@ -452,6 +541,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         meteor7Timer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.createMeteor7), userInfo: nil, repeats: true)
         
         meteor8Timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(GameScene.createMeteor8), userInfo: nil, repeats: true)
+        
     }
     
     
@@ -462,13 +552,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    //Method that call the timer for the player health power up
-    func createPowerUpHealth() {
-        
-        if hitCount > 0 {
-            powerUpHealthTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(GameScene.createHealth), userInfo: nil, repeats: true)
-        }
-    }
     
     //Method calls for the laser to be shot when the player presses the fire button
     func shootLaser() {
@@ -510,6 +593,48 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    //Method creates the focus button
+    func createFocusButton() {
+        
+        focusBkg = SKSpriteNode(texture: spriteSheet.FocusBackground())
+        focusBkg.name = "Focus"
+        focusBkg.position = CGPointMake(self.size.width / 7, 120.0)
+        focusBkg.zPosition = 2
+        self.addChild(focusBkg)
+        
+    }
+    
+    //Method keeps track of the time that runs when the focus meter is full. If the count equals 5 set the game speed back to what it was and stop the timer.
+    func gameSpeedCounter() {
+        
+        gameSpeedCount += 1
+        
+        if gameSpeedCount == 5 {
+            
+            self.speed = gameSpeed
+            gameSpeedTimer.invalidate()
+        }
+    }
+    
+    //Method runds the timer for the game speed when the focus button has been touched. Set the speed to half and run the timer for 10 seconds
+    func runGameSpeedTimer() {
+        
+        gameSpeedTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(GameScene.gameSpeedCounter), userInfo: nil, repeats: true)
+            
+    }
+    
+    func speedGameUp() {
+        
+        if enemiesDestroyed == 35 {
+            
+            gameSpeed = gameSpeed + 1
+            
+            self.speed = gameSpeed
+        
+            enemiesDestroyed = 0
+        }
+
+    }
     
     
     //MARK: Create Player Ship
@@ -562,6 +687,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: Power Up
     
+    //Method runs the action for the power up to appear
+    func movePowerUp() -> SKAction {
+        
+        let showPowerUp = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
+        let removePowerUp = SKAction.removeFromParent()
+        let showAndRemovePowerUp = SKAction.sequence([showPowerUp, removePowerUp])
+        
+        return showAndRemovePowerUp
+    }
+    
+    
+    //Method that call the timer for the player health power up
+    func createPowerUpHealth() {
+        
+        if hitCount > 0 {
+            powerUpHealthTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(GameScene.createHealth), userInfo: nil, repeats: true)
+        }
+    }
+    
+    
     //Method creates the power up for the Health Icon to appear
     func createHealth () {
         
@@ -569,18 +714,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         powerUpHealth.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
         powerUpHealth.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.PowerUpHealth().size())
         powerUpHealth.physicsBody?.dynamic = false
-        
-        let showHealthPowerUp = SKAction.moveByX(0, y: -self.frame.height, duration: NSTimeInterval(self.frame.height / 400))
-        let removeHealthPowerUp = SKAction.removeFromParent()
-        let showAndRemoveHealthPowerUp = SKAction.sequence([showHealthPowerUp, removeHealthPowerUp])
+        powerUpHealth.physicsBody?.allowsRotation = false
         
         powerUpHealth.physicsBody?.categoryBitMask = CollisionType.HealthPowerUp.rawValue
         powerUpHealth.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
         powerUpHealth.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
         
-        powerUpHealth.runAction(showAndRemoveHealthPowerUp)
+        powerUpHealth.runAction(movePowerUp())
         self.addChild(powerUpHealth)
         
+    }
+    
+    
+    //Method creates the power up for the Focus Icon to appear
+    func createFocus() {
+        
+        powerUpFocus = SKSpriteNode(texture: spriteSheet.PowerUpFocus())
+        powerUpFocus.position = CGPoint(x: variousXPoints(), y: CGRectGetMaxY(self.frame))
+        powerUpFocus.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.PowerUpFocus().size())
+        powerUpFocus.physicsBody?.dynamic = false
+        powerUpFocus.physicsBody?.allowsRotation = false
+        
+        powerUpFocus.physicsBody?.categoryBitMask = CollisionType.FocusPowerUp.rawValue
+        powerUpFocus.physicsBody?.contactTestBitMask = CollisionType.PlayerShip.rawValue
+        powerUpFocus.physicsBody?.collisionBitMask = CollisionType.Object.rawValue
+        
+        powerUpFocus.runAction(movePowerUp())
+        self.addChild(powerUpFocus)
+        
+    }
+    
+    //Method creates the focus power up. After the player shoots 20 times a power up will appear for the player to collect in order to use the complete power up to slow the game down.
+    func createPowerUpFocus() {
+        
+        if shotCount == 20 {
+            
+            powerUpFocusTimer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(GameScene.createFocus), userInfo: nil, repeats: false)
+            
+            shotCount = 0
+        }
     }
     
     
@@ -659,6 +831,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         alert.addAction(UIAlertAction(title: "Play Again", style: UIAlertActionStyle.Default) { _ in
             self.allObjects.removeAllChildren()
+            self.finalScore = self.playerScore
             self.playerScore = 0
             self.hitCount = 0
             self.exPoints = 0
@@ -669,6 +842,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.runMeteorTimer()
             self.runEnemyShipTimer()
             self.runExPointsTimer()
+            self.showHUD()
+            self.focusBkg.removeAllChildren()
+            self.shotCount = 0
+            self.enemiesDestroyed = 0
             self.speed = 1
             })
         
@@ -676,12 +853,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.allObjects.removeFromParent()
             self.allObjects.removeAllChildren()
             self.playerShip.removeAllChildren()
+            self.focusBkg.removeAllChildren()
             self.playerScore = 0
             self.hitCount = 0
             self.exPoints = 0
+            self.shotCount = 0
+            self.enemiesDestroyed = 0
             self.fireButton.removeFromParent()
             self.rain?.paused = false
             NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
+            self.scheduleNotification()
             self.showMenu()
         })
         
@@ -700,6 +881,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let remove = SKAction.removeFromParent()
         let enemyExplodeAndFade = SKAction.sequence([enemyExplode, fade, remove])
         let playerExplodeAndFade = SKAction.sequence([playerExplode, fade, remove])
+        let focusReady = SKAction.animateWithTextures(spriteSheet.Focus(), timePerFrame: 0.2)
+        let focusRepeat = SKAction.repeatActionForever(focusReady)
         
         
         //Method runs add one when the player's ship has been hit/damaged
@@ -722,7 +905,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             } else {
                 
-                playerScore = playerScore - 10
+                playerScore = playerScore - 20
             }
             
         }
@@ -755,6 +938,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(GameScene.gameOver), userInfo: nil, repeats: false)
         }
         
+        //Method that builds the focus button
+        func buildFocus() {
+            
+            focusCount = focusCount + 1
+            
+            print(focusCount)
+            
+        }
         
         //Declare variables to hold the contact bodies that will cause a action when there is contact between two different entities
         let firstBody: SKPhysicsBody = contact.bodyA
@@ -799,7 +990,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             default:
                 endGame()
             }
-            
         }
         
         //Use a conditional to check if the laser hit a enemy ship
@@ -809,33 +999,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if firstBody.node!.name == "enemyShipBlack1" || secondBody.node!.name == "enemyShipBlack1" {
                 enemyBlack1.runAction(enemyExplodeAndFade)
                 playerScore = playerScore + 5
+                enemiesDestroyed = enemiesDestroyed + 1
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
             } else if firstBody.node!.name == "enemyShipBlack2" || secondBody.node!.name == "enemyShipBlack2" {
                 enemyBlack2.runAction(enemyExplodeAndFade)
-                playerScore = playerScore + 10
+                playerScore = playerScore + 9
+                enemiesDestroyed = enemiesDestroyed + 1
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
             } else if firstBody.node!.name == "enemyShipBlack3" || secondBody.node!.name == "enemyShipBlack3" {
                 enemyBlack3.runAction(enemyExplodeAndFade)
-                playerScore = playerScore + 15
+                playerScore = playerScore + 14
+                enemiesDestroyed = enemiesDestroyed + 1
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
             } else if firstBody.node!.name == "enemyShipBlack4" || secondBody.node!.name == "enemyShipBlack4"{
                 enemyBlack4.runAction(enemyExplodeAndFade)
+                enemiesDestroyed = enemiesDestroyed + 1
                 playerScore = playerScore + 20
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
             }else if firstBody.node!.name == "enemyShipBlack5" || secondBody.node!.name == "enemyShipBlack5"{
                 enemyBlack5.runAction(enemyExplodeAndFade)
-                playerScore = playerScore + 20
+                enemiesDestroyed = enemiesDestroyed + 1
+                playerScore = playerScore + 24
                 runAction(enemyBlownUp)
                 playerLaser.removeFromParent()
             }else if firstBody.node!.name == "Meteor" || secondBody.node!.name == "Meteor" {
                 playerLaser.removeFromParent()
             }
-            
-            
         }
         
         
@@ -867,7 +1060,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 print("No More Health")
             }
             
-            
         }
         
         
@@ -894,6 +1086,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
+        
+        //Conditional statement to check if the player ship contacts a power up. If so remove the power up and alert the player by audio and add the power up
+        if (firstBody.categoryBitMask == CollisionType.PlayerShip.rawValue && secondBody.categoryBitMask == CollisionType.FocusPowerUp.rawValue) || (firstBody.categoryBitMask == CollisionType.FocusPowerUp.rawValue && secondBody.categoryBitMask == CollisionType.PlayerShip.rawValue) {
+            
+            runAction(playerHealthAudio)
+            powerUpFocus.removeFromParent()
+            
+            //Call the method to build the focus button
+            buildFocus()
+            
+            
+            switch focusCount {
+            case 1:
+                focus1 = SKSpriteNode(texture: spriteSheet.Focus1())
+                focusBkg.addChild(focus1)
+            case 2:
+                focus2 = SKSpriteNode(texture: spriteSheet.Focus2())
+                focusBkg.addChild(focus2)
+            case 3:
+                focus3 = SKSpriteNode(texture: spriteSheet.Focus3())
+                focusBkg.addChild(focus3)
+            case 4:
+                focus4 = SKSpriteNode(texture: spriteSheet.Focus4())
+                focusBkg.addChild(focus4)
+            case 5:
+                focus5 = SKSpriteNode(texture: spriteSheet.Focus5())
+                focusBkg.addChild(focus5)
+            case 6:
+                focus6 = SKSpriteNode(texture: spriteSheet.Focus6())
+                focusBkg.removeAllChildren()
+                focusBkg.runAction(focusRepeat)
+            default:
+                print("We're focused")
+                
+            }
+        }
     }
     
     

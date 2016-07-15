@@ -12,10 +12,15 @@ class SpaceRunnerSprites {
 
     // sprite names
     let FIREBUTTONLIGHT   = "FireButtonLight"
-    let MEDAL             = "Medal"
+    let FOCUS1            = "Focus1"
+    let FOCUS2            = "Focus2"
+    let FOCUS3            = "Focus3"
+    let FOCUS4            = "Focus4"
+    let FOCUS5            = "Focus5"
+    let FOCUS6            = "Focus6"
+    let FOCUSBACKGROUND   = "FocusBackground"
+    let POWERUPFOCUS      = "PowerUpFocus"
     let POWERUPHEALTH     = "PowerUpHealth"
-    let SETTINGS          = "Settings"
-    let TROPHY            = "Trophy"
     let CRUISERBLUE       = "cruiserBlue"
     let CRUISERGREEN      = "cruiserGreen"
     let CRUISERORANGE     = "cruiserOrange"
@@ -34,7 +39,9 @@ class SpaceRunnerSprites {
     let ENEMYEXPLODE1     = "enemyExplode1"
     let ENEMYEXPLODE2     = "enemyExplode2"
     let ENEMYEXPLODE3     = "enemyExplode3"
-    let GREYMETEOR1       = "greyMeteor1"
+    let GAMEACHIEVEMENT   = "gameAchievement"
+    let GAMELEADERBOARD   = "gameLeaderboard"
+    let GAMEROCKET        = "gameRocket"
     let LASERBLUE         = "laserBlue"
     let LASERRED          = "laserRed"
     let METEOR1           = "meteor1"
@@ -65,10 +72,15 @@ class SpaceRunnerSprites {
 
     // individual texture objects
     func FireButtonLight() -> SKTexture   { return textureAtlas.textureNamed(FIREBUTTONLIGHT) }
-    func Medal() -> SKTexture             { return textureAtlas.textureNamed(MEDAL) }
+    func Focus1() -> SKTexture            { return textureAtlas.textureNamed(FOCUS1) }
+    func Focus2() -> SKTexture            { return textureAtlas.textureNamed(FOCUS2) }
+    func Focus3() -> SKTexture            { return textureAtlas.textureNamed(FOCUS3) }
+    func Focus4() -> SKTexture            { return textureAtlas.textureNamed(FOCUS4) }
+    func Focus5() -> SKTexture            { return textureAtlas.textureNamed(FOCUS5) }
+    func Focus6() -> SKTexture            { return textureAtlas.textureNamed(FOCUS6) }
+    func FocusBackground() -> SKTexture   { return textureAtlas.textureNamed(FOCUSBACKGROUND) }
+    func PowerUpFocus() -> SKTexture      { return textureAtlas.textureNamed(POWERUPFOCUS) }
     func PowerUpHealth() -> SKTexture     { return textureAtlas.textureNamed(POWERUPHEALTH) }
-    func Settings() -> SKTexture          { return textureAtlas.textureNamed(SETTINGS) }
-    func Trophy() -> SKTexture            { return textureAtlas.textureNamed(TROPHY) }
     func cruiserBlue() -> SKTexture       { return textureAtlas.textureNamed(CRUISERBLUE) }
     func cruiserGreen() -> SKTexture      { return textureAtlas.textureNamed(CRUISERGREEN) }
     func cruiserOrange() -> SKTexture     { return textureAtlas.textureNamed(CRUISERORANGE) }
@@ -87,7 +99,9 @@ class SpaceRunnerSprites {
     func enemyExplode1() -> SKTexture     { return textureAtlas.textureNamed(ENEMYEXPLODE1) }
     func enemyExplode2() -> SKTexture     { return textureAtlas.textureNamed(ENEMYEXPLODE2) }
     func enemyExplode3() -> SKTexture     { return textureAtlas.textureNamed(ENEMYEXPLODE3) }
-    func greyMeteor1() -> SKTexture       { return textureAtlas.textureNamed(GREYMETEOR1) }
+    func gameAchievement() -> SKTexture   { return textureAtlas.textureNamed(GAMEACHIEVEMENT) }
+    func gameLeaderboard() -> SKTexture   { return textureAtlas.textureNamed(GAMELEADERBOARD) }
+    func gameRocket() -> SKTexture        { return textureAtlas.textureNamed(GAMEROCKET) }
     func laserBlue() -> SKTexture         { return textureAtlas.textureNamed(LASERBLUE) }
     func laserRed() -> SKTexture          { return textureAtlas.textureNamed(LASERRED) }
     func meteor1() -> SKTexture           { return textureAtlas.textureNamed(METEOR1) }
@@ -113,6 +127,17 @@ class SpaceRunnerSprites {
 
 
     // texture arrays for animations
+    func Focus() -> [SKTexture] {
+        return [
+            Focus1(),
+            Focus2(),
+            Focus3(),
+            Focus4(),
+            Focus5(),
+            Focus6()
+        ]
+    }
+
     func enemyBlack() -> [SKTexture] {
         return [
             enemyBlack1(),
