@@ -10,6 +10,7 @@ import SpriteKit
 import CoreMotion
 
 
+
 //Declare a constant for the sprite sheets to pull sprites from.
 let spriteSheet = SpaceRunnerSprites()
 
@@ -18,8 +19,8 @@ var collectedPoints = 0
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    
+
+
     //Create nodes for the UI Control and a variable to hold the amount of times the player shoots
     var fireButton = SKSpriteNode()
     var shotCount = 0
@@ -162,7 +163,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         
-        
         //Set the delegate equal to self
         self.physicsWorld.contactDelegate = self
         
@@ -247,6 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if focusCount == 6 {
                         focusCount = 0
                         focusBkg.removeAllActions()
+                        focusBkg.removeAllChildren()
                         self.speed = gameSpeed / 2
                         runGameSpeedTimer()
                     }
@@ -430,8 +431,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Call the function to make the game HUD
         showHUD()
         
-        self.addChild(allObjects)
-        
         //Call the method to create the player's ship
         createPlayerShip()
         
@@ -449,6 +448,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Call the method to run the timer for creating experience points
         runExPointsTimer()
+        
+        self.addChild(allObjects)
         
         //Set textures for the player ship damage
         shipDamage1 = SKSpriteNode(texture: spriteSheet.playerShipDamage1())
@@ -627,7 +628,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if enemiesDestroyed == 35 {
             
-            gameSpeed = gameSpeed + 1
+            gameSpeed = gameSpeed + 0.5
             
             self.speed = gameSpeed
         
@@ -651,7 +652,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     
-        playerShip.name = "Player Ship"
+        playerShip.name = "playerShipRed"
         playerShip.position = CGPointMake(self.size.width/2, self.size.height/5)
         
         playerShip.physicsBody = SKPhysicsBody(rectangleOfSize: spriteSheet.playerShipRed().size())
@@ -850,6 +851,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             })
         
         alert.addAction(UIAlertAction(title: "Menu", style: UIAlertActionStyle.Default) { _ in
+            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
+            NSUserDefaults.standardUserDefaults().setObject(self.playerShip.name, forKey: "theShip")
             self.allObjects.removeFromParent()
             self.allObjects.removeAllChildren()
             self.playerShip.removeAllChildren()
@@ -861,7 +864,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.enemiesDestroyed = 0
             self.fireButton.removeFromParent()
             self.rain?.paused = false
-            NSUserDefaults.standardUserDefaults().setObject(collectedPoints, forKey: "experiencePoints")
             self.scheduleNotification()
             self.showMenu()
         })
@@ -932,6 +934,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             meteor8Timer.invalidate()
             powerUpHealthTimer.invalidate()
             exPtsTimer.invalidate()
+            focusBkg.removeAllActions()
+            focusBkg.removeAllChildren()
             fireButton.userInteractionEnabled = true
             pauseButton.userInteractionEnabled = true
             rain?.paused = true
@@ -1063,7 +1067,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         
-        if firstBody.categoryBitMask == CollisionType.PlayerShip.rawValue && secondBody.categoryBitMask == CollisionType.EnemyLaser.rawValue {
+        if (firstBody.categoryBitMask == CollisionType.PlayerShip.rawValue && secondBody.categoryBitMask == CollisionType.EnemyLaser.rawValue) || (firstBody.categoryBitMask == CollisionType.EnemyLaser.rawValue && secondBody.categoryBitMask == CollisionType.PlayerShip.rawValue) {
             
             playerShipHit()
             

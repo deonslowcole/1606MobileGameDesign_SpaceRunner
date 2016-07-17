@@ -35,6 +35,11 @@
 		E3AA37311D302294009955A6 /* MissonControlScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AA37301D302294009955A6 /* MissonControlScene.swift */; };
 		E3FF5DFC1D36DC6F00010100 /* SpaceRunnerSprites.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF5DFB1D36DC6F00010100 /* SpaceRunnerSprites.swift */; };
 		E3FF5DFE1D376BA800010100 /* SpaceRunnerSprites.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = E3FF5DFD1D376BA800010100 /* SpaceRunnerSprites.atlasc */; };
+		E3FF5E161D38B14F00010100 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FF5E151D38B14F00010100 /* CoreTelephony.framework */; };
+		E3FF5E181D38B16300010100 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FF5E171D38B16300010100 /* SystemConfiguration.framework */; };
+		E3FF5E1D1D397E5300010100 /* App42_iOS_CampaignAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FF5E1C1D397E5300010100 /* App42_iOS_CampaignAPI.framework */; };
+		E3FF5E1F1D397E7000010100 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FF5E1E1D397E7000010100 /* CoreLocation.framework */; };
+		E3FF5E241D3B532200010100 /* Shephertz_App42_iOS_API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3FF5E231D3B532200010100 /* Shephertz_App42_iOS_API.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +73,12 @@
 		E3AA37301D302294009955A6 /* MissonControlScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissonControlScene.swift; sourceTree = "<group>"; };
 		E3FF5DFB1D36DC6F00010100 /* SpaceRunnerSprites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceRunnerSprites.swift; sourceTree = "<group>"; };
 		E3FF5DFD1D376BA800010100 /* SpaceRunnerSprites.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SpaceRunnerSprites.atlasc; sourceTree = "<group>"; };
+		E3FF5E151D38B14F00010100 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		E3FF5E171D38B16300010100 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E3FF5E191D38B59700010100 /* Space_Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Space_Runner-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		E3FF5E1C1D397E5300010100 /* App42_iOS_CampaignAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = App42_iOS_CampaignAPI.framework; sourceTree = "<group>"; };
+		E3FF5E1E1D397E7000010100 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E3FF5E231D3B532200010100 /* Shephertz_App42_iOS_API.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Shephertz_App42_iOS_API.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +86,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3FF5E1F1D397E7000010100 /* CoreLocation.framework in Frameworks */,
+				E3FF5E1D1D397E5300010100 /* App42_iOS_CampaignAPI.framework in Frameworks */,
+				E3FF5E181D38B16300010100 /* SystemConfiguration.framework in Frameworks */,
+				E3FF5E241D3B532200010100 /* Shephertz_App42_iOS_API.framework in Frameworks */,
+				E3FF5E161D38B14F00010100 /* CoreTelephony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +127,7 @@
 		E39EA6161D013EAA00FA08ED = {
 			isa = PBXGroup;
 			children = (
+				E3FF5E221D39FECB00010100 /* Frameworks */,
 				E39EA6211D013EAA00FA08ED /* Space_Runner */,
 				E39EA6201D013EAA00FA08ED /* Products */,
 			);
@@ -127,6 +144,7 @@
 		E39EA6211D013EAA00FA08ED /* Space_Runner */ = {
 			isa = PBXGroup;
 			children = (
+				E3FF5E191D38B59700010100 /* Space_Runner-Bridging-Header.h */,
 				E3FF5DFD1D376BA800010100 /* SpaceRunnerSprites.atlasc */,
 				E3FF5DFB1D36DC6F00010100 /* SpaceRunnerSprites.swift */,
 				E39EA6221D013EAA00FA08ED /* AppDelegate.swift */,
@@ -147,6 +165,18 @@
 				E3AA37301D302294009955A6 /* MissonControlScene.swift */,
 			);
 			path = Space_Runner;
+			sourceTree = "<group>";
+		};
+		E3FF5E221D39FECB00010100 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E3FF5E231D3B532200010100 /* Shephertz_App42_iOS_API.framework */,
+				E3FF5E151D38B14F00010100 /* CoreTelephony.framework */,
+				E3FF5E171D38B16300010100 /* SystemConfiguration.framework */,
+				E3FF5E1C1D397E5300010100 /* App42_iOS_CampaignAPI.framework */,
+				E3FF5E1E1D397E7000010100 /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,10 +390,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Shephertz_App42_iOS_API.framework/Headers",
+				);
 				INFOPLIST_FILE = Space_Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				New_Setting = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cole.deon.Space-Runner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Space_Runner-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -371,10 +408,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Shephertz_App42_iOS_API.framework/Headers",
+				);
 				INFOPLIST_FILE = Space_Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				New_Setting = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cole.deon.Space-Runner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Space_Runner-Bridging-Header.h";
 			};
 			name = Release;
 		};

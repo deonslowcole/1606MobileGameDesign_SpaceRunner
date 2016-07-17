@@ -156,7 +156,11 @@ class MissonControlScene: SKScene {
                     NSUserDefaults.standardUserDefaults().setObject(xp2Label.text, forKey: "blueString")
                     NSUserDefaults.standardUserDefaults().setObject(xp3Label.text, forKey: "greenString")
                     NSUserDefaults.standardUserDefaults().setObject(xp4Label.text, forKey: "orangeString")
-                    NSUserDefaults.standardUserDefaults().setObject(chosenShip, forKey: "theShip")
+                    if xp1Label.text == "Equipped" {
+                        NSUserDefaults.standardUserDefaults().setObject("playerShipRed", forKey: "theShip")
+                    } else {
+                        NSUserDefaults.standardUserDefaults().setObject(chosenShip, forKey: "theShip")
+                    }
                     self.scene?.view?.presentScene(gameScene, transition: transition)
                 }
             }

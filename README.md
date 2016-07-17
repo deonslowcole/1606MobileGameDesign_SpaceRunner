@@ -21,3 +21,10 @@ Some animation when player and enemey ships are destroyed
 Alert when the game is over
 
 Add menu, tutorial & credit scenes
+
+
+1607 Immersive Game Design
+Add immersive element - Collection
+Player can collect XP Points the longer they play the game. Points can be used to buy new ships to play with.
+Player can collect a focus enhancer. Once the player has collected 6 they can activate focus, which will slow the game down by half for 5 seconds.
+When the player finishes the game the local notification is activated and the player will recieve a notification of extra XP Points to use.
