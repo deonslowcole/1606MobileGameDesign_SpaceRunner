@@ -42,6 +42,7 @@ class SpaceRunnerSprites {
     let GAMEACHIEVEMENT   = "gameAchievement"
     let GAMELEADERBOARD   = "gameLeaderboard"
     let GAMEROCKET        = "gameRocket"
+    let GAMEUSER          = "gameUser"
     let LASERBLUE         = "laserBlue"
     let LASERRED          = "laserRed"
     let METEOR1           = "meteor1"
@@ -102,6 +103,7 @@ class SpaceRunnerSprites {
     func gameAchievement() -> SKTexture   { return textureAtlas.textureNamed(GAMEACHIEVEMENT) }
     func gameLeaderboard() -> SKTexture   { return textureAtlas.textureNamed(GAMELEADERBOARD) }
     func gameRocket() -> SKTexture        { return textureAtlas.textureNamed(GAMEROCKET) }
+    func gameUser() -> SKTexture          { return textureAtlas.textureNamed(GAMEUSER) }
     func laserBlue() -> SKTexture         { return textureAtlas.textureNamed(LASERBLUE) }
     func laserRed() -> SKTexture          { return textureAtlas.textureNamed(LASERRED) }
     func meteor1() -> SKTexture           { return textureAtlas.textureNamed(METEOR1) }

@@ -10,6 +10,7 @@ import SpriteKit
 
 class MissonControlScene: SKScene {
     
+    //Create Nodes for Scene
     var menu = SKSpriteNode()
     var menu2 = SKSpriteNode()
     var mcBkg = SKSpriteNode()

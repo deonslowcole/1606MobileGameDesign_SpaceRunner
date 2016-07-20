@@ -17,8 +17,11 @@ let spriteSheet = SpaceRunnerSprites()
 //Declare a variable for collected experience points
 var collectedPoints = 0
 
+//Declare a variable to hold the score board service to access the leaderboard API
+var scoreBoardService: ScoreBoardService? = nil
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
 
 
     //Create nodes for the UI Control and a variable to hold the amount of times the player shoots
@@ -131,6 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var tutorialButton = SKSpriteNode()
     var aboutButton = SKSpriteNode()
     var rocket = SKSpriteNode()
+    var user = SKSpriteNode()
     
     //Create emmiter nodes to add effect/animation to the scene.
     let rain = SKEmitterNode(fileNamed: "Rain.sks")
@@ -158,6 +162,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //Declare a variable to hold the timer for the experience points
     var exPtsTimer = NSTimer()
+    
+    var playerName = String()
     
     
     override func didMoveToView(view: SKView) {
@@ -189,6 +195,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         showMenu()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GameScene.scheduleNotification), name: "local-Notifications", object: nil)
+        
+        //Initalize the scoreboard service variable to the API Service
+        scoreBoardService = App42API.buildScoreBoardService() as? ScoreBoardService
         
     }
     
@@ -243,7 +252,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     mcScene.scaleMode = SKSceneScaleMode.AspectFill
                     runAction(dissolve)
                     self.scene?.view?.presentScene(mcScene, transition: transition)
-                } else if name == "Focus" {
+                } else if name == "User"{
+                    let userScene = LogInScene(size: self.size)
+                    let transition = SKTransition.fadeWithDuration(0.5)
+                    userScene.scaleMode = SKSceneScaleMode.AspectFill
+                    runAction(dissolve)
+                    self.scene?.view?.presentScene(userScene, transition: transition)
+                    
+                }else if name == "Focus" {
                     if focusCount == 6 {
                         focusCount = 0
                         focusBkg.removeAllActions()
@@ -350,11 +366,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func showMenu() -> SKSpriteNode{
         
         //Create a container to hold the menu items when the game loads
-        menuContainer = SKSpriteNode(color: UIColor.clearColor(), size: CGSizeMake(self.frame.width * 0.7, self.frame.height * 0.6))
+        menuContainer = SKSpriteNode(color: UIColor.clearColor(), size: CGSizeMake(self.frame.width * 0.8, self.frame.height * 0.6))
         menuContainer.anchorPoint = CGPointMake(0, 0)
         menuContainer.name = "Menu"
         menuContainer.zPosition = 1.0
-        menuContainer.position = CGPointMake(self.size.width/6.5, self.size.height/4)
+        menuContainer.position = CGPointMake(self.size.width/10, self.size.height/4)
         self.addChild(menuContainer)
         
         
@@ -402,6 +418,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rocket.size = CGSizeMake(menuContainer.size.width / 6, menuContainer.size.height / 7)
         rocket.position = CGPointMake(menuContainer.size.width - (menuContainer.size.width / 7), 100)
         menuContainer.addChild(rocket)
+        
+        user = SKSpriteNode(texture: spriteSheet.gameUser())
+        user.name = "User"
+        user.size = CGSizeMake(menuContainer.size.width / 6, menuContainer.size.height / 7)
+        user.position = CGPointMake(rocket.position.x - 215, 100)
+        menuContainer.addChild(user)
         
         
         return menuContainer
@@ -823,10 +845,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    //MARK: Game Over Function
+    //MARK: Game Over Functions
+    
+    //Method adds the created user's sore to the leader board
+    func addToLeaderBoard(theScore: Int) {
+        
+        if let playerName = NSUserDefaults.standardUserDefaults().objectForKey("savedName") {
+            
+            let gameName = "SpaceRunnerDC"
+            let gameUserName = playerName
+            let gameScore = Double(theScore)
+            scoreBoardService?.saveUserScore(gameName, gameUserName: gameUserName as! String, gameScore: gameScore, completionBlock: { (success, response, exception) -> Void in
+                if(success)
+                {
+                    let game = response as! Game
+                    print("GameName is %@", game.name)
+                    let scoreList = game.scoreList
+                    for score in scoreList
+                    {
+                        print("userName is %@", score.userName)
+                        let scoreValue = score.value as Double
+                        print("Score is %lf",scoreValue)
+                        print("ScoreId is%@", score.scoreId)
+                        //self.editScoreId = score.scoreId
+                    }
+                }
+                else
+                {
+                    print("%@", exception.reason!)
+                    print("%d", exception.appErrorCode)
+                    print("%d", exception.httpErrorCode)
+                    print("%@", exception.userInfo!)
+                }
+            })
+            
+        }
+        
+    }
+    
+    //Method that runs when the player has died. Set the newly gained xp to the overall variabel that will hold the amount in case the player decieds to play again. Call the add to leader board function passing the players score as a parameter. use an alert to let the player know the game is over and give them an option to go back to the main menu or play again.
     func gameOver () {
         
         collectedPoints = collectedPoints + exPoints
+        
+        addToLeaderBoard(playerScore)
         
         let alert = UIAlertController(title: "Space Runner", message: "Game Over" + "\n" + "You've gained \(collectedPoints) experience points. Use them wisely.", preferredStyle: UIAlertControllerStyle.Alert)
         
