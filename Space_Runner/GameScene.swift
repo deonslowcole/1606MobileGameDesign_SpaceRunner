@@ -134,7 +134,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var tutorialButton = SKSpriteNode()
     var aboutButton = SKSpriteNode()
     var rocket = SKSpriteNode()
-    var user = SKSpriteNode()
+    var userSignIn = SKSpriteNode()
+    var seeLeaderBoard = SKSpriteNode()
     
     //Create emmiter nodes to add effect/animation to the scene.
     let rain = SKEmitterNode(fileNamed: "Rain.sks")
@@ -258,8 +259,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     userScene.scaleMode = SKSceneScaleMode.AspectFill
                     runAction(dissolve)
                     self.scene?.view?.presentScene(userScene, transition: transition)
-                    
-                }else if name == "Focus" {
+                } else if name == "LeaderBoard" {
+                    let leaderScene = LeaderboardScene(size: self.size)
+                    let transition = SKTransition.fadeWithDuration(0.5)
+                    leaderScene.scaleMode = SKSceneScaleMode.AspectFill
+                    runAction(dissolve)
+                    self.scene?.view?.presentScene(leaderScene, transition: transition)
+                } else if name == "Focus" {
                     if focusCount == 6 {
                         focusCount = 0
                         focusBkg.removeAllActions()
@@ -419,11 +425,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rocket.position = CGPointMake(menuContainer.size.width - (menuContainer.size.width / 7), 100)
         menuContainer.addChild(rocket)
         
-        user = SKSpriteNode(texture: spriteSheet.gameUser())
-        user.name = "User"
-        user.size = CGSizeMake(menuContainer.size.width / 6, menuContainer.size.height / 7)
-        user.position = CGPointMake(rocket.position.x - 215, 100)
-        menuContainer.addChild(user)
+        userSignIn = SKSpriteNode(texture: spriteSheet.gameUser())
+        userSignIn.name = "User"
+        userSignIn.size = CGSizeMake(menuContainer.size.width / 6, menuContainer.size.height / 7)
+        userSignIn.position = CGPointMake(rocket.position.x - 215, 100)
+        menuContainer.addChild(userSignIn)
+        
+        seeLeaderBoard = SKSpriteNode(texture: spriteSheet.gameLeaderboard())
+        seeLeaderBoard.name = "LeaderBoard"
+        seeLeaderBoard.size = CGSizeMake(menuContainer.size.width / 6, menuContainer.size.height / 7)
+        seeLeaderBoard.position = CGPointMake(userSignIn.position.x - 215, 100)
+        menuContainer.addChild(seeLeaderBoard)
         
         
         return menuContainer

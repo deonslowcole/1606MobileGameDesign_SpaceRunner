@@ -13,9 +13,7 @@ class GameViewController: UIViewController {
     
     let apiKey = "4c18bcc27974477ec47e3b30464e1ac3bdf4d7e8ea67e6003b373d9dcf2833cf"
     let secretKey = "c5e98434acc66785c44109d1021015a758fd9428f54e07c02d79732c29e47eb6"
-//    var userName = "DeonCole"
-//    var pwd = "SpaceRunnerDC"
-//    var emailId = "deoncole77@gmail.com"
+
     var storageService = App42API.buildStorageService()
 
     override func viewDidLoad() {
@@ -25,23 +23,6 @@ class GameViewController: UIViewController {
         App42API.initializeWithAPIKey(apiKey, andSecretKey: secretKey)
         App42API.enableApp42Trace(true)
         
-        
-//        //Create User
-//        let userService: UserService = App42API.buildUserService() as! UserService
-//        userService.createUser(userName, password: pwd, emailAddress: emailId) { (success, response, exception) in
-//            
-//            if(success)
-//            {
-//                let user = response as! User
-//                NSLog("%@", user.userName)
-//                NSLog("%@", user.email)
-//            }
-//            else
-//            {
-//                NSLog("%@", exception.reason!)
-//            }
-//
-//        }
         
         
         if let scene = GameScene(fileNamed:"GameScene") {

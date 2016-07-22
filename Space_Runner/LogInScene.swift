@@ -17,7 +17,6 @@ class LogInScene: SKScene, UITextFieldDelegate {
     
     var userBkg = SKSpriteNode()
     
-//    var userName: String?
     var pwd: String?
     var emailId: String?
     var storageService = App42API.buildStorageService()

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E343C6E61D4006A2003E455F /* LeaderboardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E343C6E51D4006A2003E455F /* LeaderboardScene.swift */; };
+		E343C6EC1D408FD3003E455F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E343C6EB1D408FD3003E455F /* FBSDKCoreKit.framework */; };
+		E343C6EE1D408FEF003E455F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E343C6ED1D408FEF003E455F /* FBSDKLoginKit.framework */; };
+		E343C6F01D408FFB003E455F /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E343C6EF1D408FFB003E455F /* FBSDKShareKit.framework */; };
 		E3472FDC1D17AB7F00717E8B /* EnemyShips.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */; };
 		E3472FDE1D19927300717E8B /* Meteors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3472FDD1D19927300717E8B /* Meteors.swift */; };
 		E35528031D05DA90009979E3 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = E35528021D05DA90009979E3 /* Fire.sks */; };
@@ -44,6 +48,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E343C6E51D4006A2003E455F /* LeaderboardScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardScene.swift; sourceTree = "<group>"; };
+		E343C6EB1D408FD3003E455F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		E343C6ED1D408FEF003E455F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		E343C6EF1D408FFB003E455F /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E3472FDB1D17AB7F00717E8B /* EnemyShips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyShips.swift; sourceTree = "<group>"; };
 		E3472FDD1D19927300717E8B /* Meteors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meteors.swift; sourceTree = "<group>"; };
 		E35528021D05DA90009979E3 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
@@ -88,9 +96,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E343C6F01D408FFB003E455F /* FBSDKShareKit.framework in Frameworks */,
 				E3FF5E1F1D397E7000010100 /* CoreLocation.framework in Frameworks */,
+				E343C6EC1D408FD3003E455F /* FBSDKCoreKit.framework in Frameworks */,
 				E3FF5E1D1D397E5300010100 /* App42_iOS_CampaignAPI.framework in Frameworks */,
 				E3FF5E181D38B16300010100 /* SystemConfiguration.framework in Frameworks */,
+				E343C6EE1D408FEF003E455F /* FBSDKLoginKit.framework in Frameworks */,
 				E3FF5E241D3B532200010100 /* Shephertz_App42_iOS_API.framework in Frameworks */,
 				E3FF5E161D38B14F00010100 /* CoreTelephony.framework in Frameworks */,
 			);
@@ -166,6 +177,7 @@
 				E36094051D1C71180051B296 /* TutorialScene.swift */,
 				E3AA37301D302294009955A6 /* MissonControlScene.swift */,
 				E3FF5E271D3DE15D00010100 /* LogInScene.swift */,
+				E343C6E51D4006A2003E455F /* LeaderboardScene.swift */,
 			);
 			path = Space_Runner;
 			sourceTree = "<group>";
@@ -173,6 +185,9 @@
 		E3FF5E221D39FECB00010100 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E343C6EF1D408FFB003E455F /* FBSDKShareKit.framework */,
+				E343C6ED1D408FEF003E455F /* FBSDKLoginKit.framework */,
+				E343C6EB1D408FD3003E455F /* FBSDKCoreKit.framework */,
 				E3FF5E231D3B532200010100 /* Shephertz_App42_iOS_API.framework */,
 				E3FF5E151D38B14F00010100 /* CoreTelephony.framework */,
 				E3FF5E171D38B16300010100 /* SystemConfiguration.framework */,
@@ -271,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3FF5E281D3DE15D00010100 /* LogInScene.swift in Sources */,
+				E343C6E61D4006A2003E455F /* LeaderboardScene.swift in Sources */,
 				E36094061D1C71180051B296 /* TutorialScene.swift in Sources */,
 				E39EA6271D013EAA00FA08ED /* GameScene.swift in Sources */,
 				E3AA37311D302294009955A6 /* MissonControlScene.swift in Sources */,
