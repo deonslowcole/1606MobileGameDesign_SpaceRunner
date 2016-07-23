@@ -65,6 +65,7 @@ class SpaceRunnerSprites {
     let PLAYERSHIPGREEN   = "playerShipGreen"
     let PLAYERSHIPORANGE  = "playerShipOrange"
     let PLAYERSHIPRED     = "playerShipRed"
+    let SHAREBUTTON       = "shareButton"
 
 
     // load texture atlas
@@ -126,6 +127,7 @@ class SpaceRunnerSprites {
     func playerShipGreen() -> SKTexture   { return textureAtlas.textureNamed(PLAYERSHIPGREEN) }
     func playerShipOrange() -> SKTexture  { return textureAtlas.textureNamed(PLAYERSHIPORANGE) }
     func playerShipRed() -> SKTexture     { return textureAtlas.textureNamed(PLAYERSHIPRED) }
+    func shareButton() -> SKTexture       { return textureAtlas.textureNamed(SHAREBUTTON) }
 
 
     // texture arrays for animations

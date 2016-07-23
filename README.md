@@ -28,3 +28,10 @@ Add immersive element - Collection
 Player can collect XP Points the longer they play the game. Points can be used to buy new ships to play with.
 Player can collect a focus enhancer. Once the player has collected 6 they can activate focus, which will slow the game down by half for 5 seconds.
 When the player finishes the game the local notification is activated and the player will recieve a notification of extra XP Points to use.
+
+Leaderboard:
+Online leaderboard can be seen when the player is finished playing a game.
+To create a user touch the player icon on the main menu scene.
+To see the leaderboard touch the trophy on the main menu scene.
+Touch one of the segment controls to see the top players.
+On the leader board scene touch the share button to share a image of the screen to facebook.
