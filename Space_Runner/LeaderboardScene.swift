@@ -44,8 +44,6 @@ class LeaderboardScene: SKScene, CLLocationManagerDelegate {
     var shareButton = SKSpriteNode()
     var menu = SKSpriteNode()
     
-    //Create node for Audio
-    let close = SKAction.playSoundFileNamed("SpaceDoorClose.mp3", waitForCompletion: true)
     
     
     override func didMoveToView(view: SKView) {

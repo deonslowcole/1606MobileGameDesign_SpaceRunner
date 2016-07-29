@@ -33,10 +33,6 @@ class LogInScene: SKScene, UITextFieldDelegate {
     var savedPassword: NSUserDefaults?
     
     
-    //Create node for Audio
-    let close = SKAction.playSoundFileNamed("SpaceDoorClose.mp3", waitForCompletion: true)
-    
-    
     override func didMoveToView(view: SKView) {
         
         //Create for background and add it to the scene

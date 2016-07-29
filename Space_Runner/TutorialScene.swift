@@ -14,8 +14,6 @@ class TutorialScene: SKScene {
     var menu = SKSpriteNode()
     var menu2 = SKSpriteNode()
     
-    //Create node for Audio
-    let close = SKAction.playSoundFileNamed("SpaceDoorClose.mp3", waitForCompletion: true)
     
     
     override func didMoveToView(view: SKView) {

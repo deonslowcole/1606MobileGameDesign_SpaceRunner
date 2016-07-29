@@ -44,8 +44,6 @@ class MissonControlScene: SKScene {
     var hudContainer = SKSpriteNode()
     
     
-    //Create node for Audio
-    let close = SKAction.playSoundFileNamed("SpaceDoorClose.mp3", waitForCompletion: true)
     
     //Declare a variable to hold the name of the ship that the player chooses.
     var chosenShip = String()

@@ -20,6 +20,23 @@ var collectedPoints = 0
 //Declare a variable to hold the score board service to access the leaderboard API
 var scoreBoardService: ScoreBoardService? = nil
 
+//Declare a variable to hold the total count of enemies destroyed for the number of enemies destroyed achievement
+var totalKills = 0
+
+//Declare a variable to hold the total count of enemies destroyed for the number of enemies destroyed before taking damage achievement
+var totalDestroyedBfDamage = 0
+
+//Declare a variable to hold the total count of enemies destroyed for the number of enemies destroyed achievement
+var totalSurvivalTime = 0
+
+//Declare a variable to hold the total count of enhancers collected for the enhancer achievement
+var totalEnhancerCount = 0
+
+
+//Create node for Audio
+let close = SKAction.playSoundFileNamed("SpaceDoorClose.mp3", waitForCompletion: true)
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
 
@@ -136,6 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rocket = SKSpriteNode()
     var userSignIn = SKSpriteNode()
     var seeLeaderBoard = SKSpriteNode()
+    var achievementBoard = SKSpriteNode()
     
     //Create emmiter nodes to add effect/animation to the scene.
     let rain = SKEmitterNode(fileNamed: "Rain.sks")
@@ -165,6 +183,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var exPtsTimer = NSTimer()
     
     var playerName = String()
+    
+    
+    //Declare a variable to hold the amount of enemies destroyed throughout gameplay
+    var killCount = 0
+    
+    var isHit = false
+    var destroyedBfDamage = 0
+    
+    var survivalTime = 0
+    var survivalTimer = NSTimer()
+    
+    var enhancerCount = 0
     
     
     override func didMoveToView(view: SKView) {
@@ -265,7 +295,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     leaderScene.scaleMode = SKSceneScaleMode.AspectFill
                     runAction(dissolve)
                     self.scene?.view?.presentScene(leaderScene, transition: transition)
-                } else if name == "Focus" {
+                } else if name == "Achievements" {
+                    let achieveScene = AchievementScene(size: self.size)
+                    let transition = SKTransition.fadeWithDuration(0.5)
+                    achieveScene.scaleMode = SKSceneScaleMode.AspectFill
+                    runAction(dissolve)
+                    self.scene?.view?.presentScene(achieveScene, transition: transition)
+                }else if name == "Focus" {
                     if focusCount == 6 {
                         focusCount = 0
                         focusBkg.removeAllActions()
@@ -437,6 +473,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         seeLeaderBoard.position = CGPointMake(userSignIn.position.x - 215, 100)
         menuContainer.addChild(seeLeaderBoard)
         
+        achievementBoard = SKSpriteNode(texture: spriteSheet.gameAchievement())
+        achievementBoard.name = "Achievements"
+        achievementBoard.size = CGSizeMake(menuContainer.size.width / 5, menuContainer.size.height / 7)
+        achievementBoard.position = CGPointMake(seeLeaderBoard.position.x - 215, 100)
+        menuContainer.addChild(achievementBoard)
+        
         
         return menuContainer
         
@@ -449,9 +491,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //Method loads the game
     func loadGame() {
         
+        //Call the method to run the timer for survival achievment
+        runSurviveTimer()
         
-        
-        //Use optional binding to check if there are any stored xp. If there are, start the game with what is there else the start with 0 xp.
+        //Use optional binding to check if there are is stored xp. If there are, start the game with what is there else the start with 0 xp.
         if let xp = NSUserDefaults.standardUserDefaults().objectForKey("collectedPoints") {
             
             collectedPoints = Int(xp as! NSNumber)
@@ -459,6 +502,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             
             collectedPoints = 0
+        }
+        
+        
+        //Use optional binding to check if there are any stored kill amounts for the first achievement
+        if let kills = NSUserDefaults.standardUserDefaults().objectForKey("TotalKills"){
+            
+            totalKills = kills as! Int
+            
+        } else {
+            
+            totalKills = 0
+        }
+        
+        
+        //Use optional binding to check if there are any stored destroyed amounts for the second achievement
+        if let totalDest = NSUserDefaults.standardUserDefaults().objectForKey("TotalDestBfDamage"){
+            
+            totalDestroyedBfDamage = totalDest as! Int
+            
+        } else {
+            
+            totalDestroyedBfDamage = 0
+        }
+        
+        
+        //Use optional binding to check if there is any stored time of survival for the third achievement
+        if let totalSurvive = NSUserDefaults.standardUserDefaults().objectForKey("TotalSurvivalTime"){
+            
+            totalSurvivalTime = totalSurvive as! Int
+            
+        } else {
+            
+            totalSurvivalTime = 0
+        }
+        
+        //Use optional binding to check if there is any stored enhancer count for the fourth achievement
+        if let totalEnhancer = NSUserDefaults.standardUserDefaults().objectForKey("TotalEnhancerCount"){
+            
+            totalEnhancerCount = totalEnhancer as! Int
+        
+        } else {
+            
+            totalEnhancerCount = 0
+            
         }
         
         
@@ -672,6 +759,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    func surviveTime() {
+        
+        survivalTime += 1
+        
+    }
+    
+    func runSurviveTimer() {
+        
+        //Set the timer to count the number of seconds for the survival achievement
+        survivalTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(GameScene.surviveTime), userInfo: nil, repeats: true)
+        
+    }
+    
+    
     //MARK: Create Player Ship
     func createPlayerShip(){
         
@@ -840,6 +941,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         meteor7Timer.invalidate()
         meteor8Timer.invalidate()
         exPtsTimer.invalidate()
+        survivalTimer.invalidate()
         fireButton.userInteractionEnabled = false
         
         let alert = UIAlertController(title: "Space Runner", message: "Game Paused", preferredStyle: UIAlertControllerStyle.Alert)
@@ -849,6 +951,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.runEnemyShipTimer()
             self.runMeteorTimer()
             self.createExPoints()
+            self.runSurviveTimer()
             self.fireButton.userInteractionEnabled = true
             })
         
@@ -900,6 +1003,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         collectedPoints = collectedPoints + exPoints
         
+        totalKills = totalKills + killCount
+        totalDestroyedBfDamage = totalDestroyedBfDamage + destroyedBfDamage
+        totalSurvivalTime = totalSurvivalTime + survivalTime
+        totalEnhancerCount = totalEnhancerCount + enhancerCount
+        
+        NSUserDefaults.standardUserDefaults().setObject(totalKills, forKey: "TotalKills")
+        NSUserDefaults.standardUserDefaults().setObject(totalDestroyedBfDamage, forKey: "TotalDestBfDamage")
+        NSUserDefaults.standardUserDefaults().setObject(totalSurvivalTime, forKey: "TotalSurvivalTime")
+        NSUserDefaults.standardUserDefaults().setObject(totalEnhancerCount, forKey: "TotalEnhancerCount")
+        
         addToLeaderBoard(playerScore)
         
         let alert = UIAlertController(title: "Space Runner", message: "Game Over" + "\n" + "You've gained \(collectedPoints) experience points. Use them wisely.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -921,6 +1034,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.focusBkg.removeAllChildren()
             self.shotCount = 0
             self.enemiesDestroyed = 0
+            self.killCount = 0
+            self.destroyedBfDamage = 0
+            self.survivalTime = 0
+            self.enhancerCount = 0
             self.speed = 1
             })
         
@@ -936,6 +1053,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.exPoints = 0
             self.shotCount = 0
             self.enemiesDestroyed = 0
+            self.killCount = 0
+            self.destroyedBfDamage = 0
+            self.survivalTime = 0
+            self.enhancerCount = 0
             self.fireButton.removeFromParent()
             self.rain?.paused = false
             self.scheduleNotification()
@@ -968,6 +1089,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if hitCount == 1 {
                 createPowerUpHealth()
+            }
+            
+        }
+        
+        //Method runs to add the enemy destroyed until the player ship is hit for the number of enemies destroyed before taking damage achievment
+        func enemyDestroyedCheck (){
+            
+            enemiesDestroyed = enemiesDestroyed + 1
+            killCount = killCount + 1
+            runAction(enemyBlownUp)
+            playerLaser.removeFromParent()
+            
+            if isHit == false {
+                
+                destroyedBfDamage = destroyedBfDamage + 1
+                
             }
             
         }
@@ -1008,11 +1145,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             meteor8Timer.invalidate()
             powerUpHealthTimer.invalidate()
             exPtsTimer.invalidate()
+            survivalTimer.invalidate()
             focusBkg.removeAllActions()
             focusBkg.removeAllChildren()
             fireButton.userInteractionEnabled = true
             pauseButton.userInteractionEnabled = true
             rain?.paused = true
+            isHit = false
             _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(GameScene.gameOver), userInfo: nil, repeats: false)
         }
         
@@ -1077,32 +1216,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if firstBody.node!.name == "enemyShipBlack1" || secondBody.node!.name == "enemyShipBlack1" {
                 enemyBlack1.runAction(enemyExplodeAndFade)
                 playerScore = playerScore + 5
-                enemiesDestroyed = enemiesDestroyed + 1
-                runAction(enemyBlownUp)
-                playerLaser.removeFromParent()
+                enemyDestroyedCheck()
             } else if firstBody.node!.name == "enemyShipBlack2" || secondBody.node!.name == "enemyShipBlack2" {
                 enemyBlack2.runAction(enemyExplodeAndFade)
                 playerScore = playerScore + 9
-                enemiesDestroyed = enemiesDestroyed + 1
-                runAction(enemyBlownUp)
-                playerLaser.removeFromParent()
+                enemyDestroyedCheck()
             } else if firstBody.node!.name == "enemyShipBlack3" || secondBody.node!.name == "enemyShipBlack3" {
                 enemyBlack3.runAction(enemyExplodeAndFade)
                 playerScore = playerScore + 14
-                enemiesDestroyed = enemiesDestroyed + 1
-                runAction(enemyBlownUp)
-                playerLaser.removeFromParent()
+                enemyDestroyedCheck()
             } else if firstBody.node!.name == "enemyShipBlack4" || secondBody.node!.name == "enemyShipBlack4"{
                 enemyBlack4.runAction(enemyExplodeAndFade)
-                enemiesDestroyed = enemiesDestroyed + 1
                 playerScore = playerScore + 20
-                runAction(enemyBlownUp)
-                playerLaser.removeFromParent()
+                enemyDestroyedCheck()
             }else if firstBody.node!.name == "enemyShipBlack5" || secondBody.node!.name == "enemyShipBlack5"{
                 enemyBlack5.runAction(enemyExplodeAndFade)
-                enemiesDestroyed = enemiesDestroyed + 1
                 playerScore = playerScore + 24
-                runAction(enemyBlownUp)
+                enemyDestroyedCheck()
                 playerLaser.removeFromParent()
             }else if firstBody.node!.name == "Meteor" || secondBody.node!.name == "Meteor" {
                 playerLaser.removeFromParent()
@@ -1113,6 +1243,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Conditional statement to check if the player ship contacts a power up. If so remove the power up and alert the player by audio and add the power up
         if (firstBody.categoryBitMask == CollisionType.HealthPowerUp.rawValue && secondBody.categoryBitMask == CollisionType.PlayerShip.rawValue) || (firstBody.categoryBitMask == CollisionType.PlayerShip.rawValue && secondBody.categoryBitMask == CollisionType.HealthPowerUp.rawValue) {
+            
+            enhancerCount = enhancerCount + 1
             
             switch hitCount {
             case 1:
@@ -1150,6 +1282,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 enemyLaser.removeFromParent()
                 runAction(enemyBlownUp)
                 playerShip.addChild(shipDamage1)
+                isHit = true
             case 2:
                 enemyLaser.removeFromParent()
                 runAction(enemyBlownUp)
@@ -1174,6 +1307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //Call the method to build the focus button
             buildFocus()
             
+            enhancerCount = enhancerCount + 1
             
             switch focusCount {
             case 1:

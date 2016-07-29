@@ -21,6 +21,8 @@ class SpaceRunnerSprites {
     let FOCUSBACKGROUND   = "FocusBackground"
     let POWERUPFOCUS      = "PowerUpFocus"
     let POWERUPHEALTH     = "PowerUpHealth"
+    let STAR              = "Star"
+    let STARCOVERED       = "StarCovered"
     let CRUISERBLUE       = "cruiserBlue"
     let CRUISERGREEN      = "cruiserGreen"
     let CRUISERORANGE     = "cruiserOrange"
@@ -83,6 +85,8 @@ class SpaceRunnerSprites {
     func FocusBackground() -> SKTexture   { return textureAtlas.textureNamed(FOCUSBACKGROUND) }
     func PowerUpFocus() -> SKTexture      { return textureAtlas.textureNamed(POWERUPFOCUS) }
     func PowerUpHealth() -> SKTexture     { return textureAtlas.textureNamed(POWERUPHEALTH) }
+    func Star() -> SKTexture              { return textureAtlas.textureNamed(STAR) }
+    func StarCovered() -> SKTexture       { return textureAtlas.textureNamed(STARCOVERED) }
     func cruiserBlue() -> SKTexture       { return textureAtlas.textureNamed(CRUISERBLUE) }
     func cruiserGreen() -> SKTexture      { return textureAtlas.textureNamed(CRUISERGREEN) }
     func cruiserOrange() -> SKTexture     { return textureAtlas.textureNamed(CRUISERORANGE) }
